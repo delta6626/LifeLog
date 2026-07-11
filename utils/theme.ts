@@ -2,6 +2,21 @@ import { MD3LightTheme } from "react-native-paper";
 
 export const theme = {
   ...MD3LightTheme,
+  colors: {
+    ...MD3LightTheme.colors,
+    background: "#F6F5EE",
+    onBackground: "#242A1F",
+    surface: "#FFFFFF",
+    onSurface: "#242A1F",
+    onSurfaceVariant: "#5F6B57",
+    primary: "#5B7052",
+    onPrimary: "#FFFFFF",
+    primaryContainer: "#DCE3D0",
+    onPrimaryContainer: "#43543D",
+    tertiary: "#C1673D",
+    onTertiary: "#FFFFFF",
+    outline: "#DAD9C8",
+  },
   spacing: {
     xs: 4,
     sm: 8,
