@@ -1,22 +1,30 @@
-import { StyleSheet, Text, View } from "react-native";
-import { useTheme } from "react-native-paper";
+import { ScrollView, StyleSheet, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function HomeScreen() {
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   return (
-    <View
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    <SafeAreaView
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.background,
+          paddingVertical: theme.spacing.xl,
+          paddingHorizontal: theme.spacing.xl,
+        },
+      ]}
     >
-      <Text>Edit src/app/index.tsx to edit this screen.</Text>
-    </View>
+      <ScrollView>
+        <Text>LifeLog</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
