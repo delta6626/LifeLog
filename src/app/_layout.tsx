@@ -1,10 +1,19 @@
 import { Stack } from "expo-router";
-import { PaperProvider } from "react-native-paper";
+import { MD3LightTheme, PaperProvider } from "react-native-paper";
+
+// const customAppTheme = {
+//   ...MD3LightTheme,
+//   colors: {
+//     ...MD3LightTheme.colors,
+//     primary: "",
+//     secondary: "",
+//   },
+// };
 
 export default function RootLayout() {
   return (
     // Wrap with PaperProvider to apply material theming globally
-    <PaperProvider>
+    <PaperProvider theme={MD3LightTheme}>
       {/* Define screens */}
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="home" />
