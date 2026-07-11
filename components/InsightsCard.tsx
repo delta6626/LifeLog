@@ -12,6 +12,13 @@ export const InsightsCard = () => {
       paddingHorizontal: theme.spacing.sm,
       paddingVertical: theme.spacing.sm,
       borderRadius: theme.radii.x3l,
+      alignItems: "center",
+    },
+
+    separator: {
+      width: 0.5,
+      height: 40,
+      backgroundColor: theme.colors.outline,
     },
 
     insightBox: {
@@ -35,21 +42,31 @@ export const InsightsCard = () => {
         <Text variant={"titleMedium"} style={styles.insightBoxText}>
           6
         </Text>
-        <Text variant={"labelSmall"}>Total</Text>
+        <Text variant={"labelSmall"} style={styles.insightBoxSubtext}>
+          Total
+        </Text>
       </View>
+
+      <View style={styles.separator}></View>
 
       <View style={styles.insightBox}>
         <Text variant={"titleMedium"} style={styles.insightBoxText}>
           6
         </Text>
-        <Text variant={"labelSmall"}>This year</Text>
+        <Text variant={"labelSmall"} style={styles.insightBoxSubtext}>
+          This year
+        </Text>
       </View>
+
+      <View style={styles.separator}></View>
 
       <View style={styles.insightBox}>
         <Text variant={"titleMedium"} style={styles.insightBoxText}>
           43.4K
         </Text>
-        <Text variant={"labelSmall"}>Words</Text>
+        <Text variant={"labelSmall"} style={styles.insightBoxSubtext}>
+          Words
+        </Text>
       </View>
     </View>
   );
