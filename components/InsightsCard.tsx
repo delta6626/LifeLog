@@ -7,6 +7,7 @@ export const InsightsCard = () => {
 
   const styles = StyleSheet.create({
     parentContainer: {
+      marginTop: theme.spacing.sm,
       flexDirection: "row",
       backgroundColor: theme.colors.surface,
       paddingHorizontal: theme.spacing.sm,
