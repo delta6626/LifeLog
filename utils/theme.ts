@@ -17,6 +17,7 @@ export const theme = {
     onTertiary: "#FFFFFF",
     outline: "#DAD9C8",
   },
+
   spacing: {
     xs: 4,
     sm: 8,
@@ -25,5 +26,18 @@ export const theme = {
     xl: 24,
     x2l: 32,
     x3l: 48,
+  },
+
+  radii: {
+    none: 0,
+    xs: 1.5,
+    sm: 2,
+    md: 6,
+    lg: 8,
+    xl: 12,
+    x2l: 16,
+    x3l: 24,
+    x4l: 32,
+    full: 9999,
   },
 };

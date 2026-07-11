@@ -13,7 +13,12 @@ export const HomeTopBar = () => {
         flexDirection: "row",
       }}
     >
-      <Text variant={"headlineSmall"}>LifeLog</Text>
+      <Text
+        variant={"headlineSmall"}
+        style={{ color: theme.colors.onPrimaryContainer }}
+      >
+        LifeLog
+      </Text>
       <IconButton
         icon={"magnify"}
         mode={"contained-tonal"}
