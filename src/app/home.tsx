@@ -1,6 +1,6 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
-import { Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HomeTopBar } from "../../components/HomeTopBar";
 import { InsightsCard } from "../../components/InsightsCard";
@@ -21,16 +21,31 @@ export default function HomeScreen() {
       marginTop: theme.spacing.md,
       color: theme.colors.onSurfaceVariant,
     },
+
+    featureButtonContainer: {
+      flexDirection: "row",
+      marginTop: theme.spacing.sm,
+      gap: theme.spacing.md,
+    },
   });
 
   return (
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
         <HomeTopBar />
+
         <Text variant={"titleMedium"} style={styles.greetingText}>
           Good afternoon
         </Text>
+
         <InsightsCard />
+
+        <View style={styles.featureButtonContainer}>
+          <Button mode={"outlined"}>Favorites</Button>
+          <Button icon={"plus"} mode={"contained"} style={{ flex: 1 }}>
+            New memory
+          </Button>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
