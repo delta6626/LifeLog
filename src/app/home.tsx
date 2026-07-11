@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HomeTopBar } from "../../components/HomeTopBar";
+import { InsightsCard } from "../../components/InsightsCard";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function HomeScreen() {
@@ -20,6 +21,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
         <HomeTopBar />
+        <InsightsCard />
       </ScrollView>
     </SafeAreaView>
   );
