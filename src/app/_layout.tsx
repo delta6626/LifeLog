@@ -8,7 +8,7 @@ export default function RootLayout() {
       {/* Define screens */}
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="home" />
-        <Stack.Screen name="entries" />
+        <Stack.Screen name="entry" />
         <Stack.Screen name="search" />
         <Stack.Screen name="favorites" />
       </Stack>
