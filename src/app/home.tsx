@@ -1,6 +1,7 @@
-import { ScrollView, StyleSheet, View } from "react-native";
-import { IconButton, Text } from "react-native-paper";
+import { ScrollView, StyleSheet } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
+import { HomeTopBar } from "../../components/HomeTopBar";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function HomeScreen() {
@@ -13,21 +14,12 @@ export default function HomeScreen() {
       paddingVertical: theme.spacing.xl,
       paddingHorizontal: theme.spacing.xl,
     },
-
-    topBar: {
-      justifyContent: "space-between",
-      alignItems: "center",
-      flexDirection: "row",
-    },
   });
 
   return (
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
-        <View style={styles.topBar}>
-          <Text variant={"headlineSmall"}>LifeLog</Text>
-          <IconButton icon={"magnify"} mode={"contained-tonal"}></IconButton>
-        </View>
+        <HomeTopBar />
       </ScrollView>
     </SafeAreaView>
   );
