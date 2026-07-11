@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppTheme } from "../../utils/useAppTheme";
@@ -18,7 +18,9 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
-        <Text variant={"headlineSmall"}>LifeLog</Text>
+        <View>
+          <Text variant={"headlineSmall"}>LifeLog</Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
