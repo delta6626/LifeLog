@@ -1,5 +1,5 @@
 export type ScreenHeaderTitle =
   | "Edit memory"
   | "View memory"
-  | "Search memory"
+  | "Search memories"
   | "Browse favorites";
