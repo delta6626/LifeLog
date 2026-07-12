@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
+import { router } from "expo-router";
 import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { EntryCard } from "../../components/EntryCard";
@@ -36,6 +37,10 @@ export default function HomeScreen() {
     },
   });
 
+  const handleFavoriteButtonPress = () => {
+    router.navigate("/favorites");
+  };
+
   return (
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
@@ -48,7 +53,9 @@ export default function HomeScreen() {
         <InsightsCard />
 
         <View style={styles.featureButtonContainer}>
-          <Button mode={"outlined"}>Favorites</Button>
+          <Button mode={"outlined"} onPress={handleFavoriteButtonPress}>
+            Favorites
+          </Button>
           <Button icon={"plus"} mode={"contained"} style={{ flex: 1 }}>
             New memory
           </Button>
