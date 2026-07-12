@@ -29,11 +29,11 @@ export const InsightsCard = () => {
     },
 
     insightBoxText: {
-      color: theme.colors.onPrimaryContainer,
+      color: theme.colors.primary,
     },
 
     insightBoxSubtext: {
-      color: theme.colors.onSurfaceVariant,
+      color: theme.colors.muted,
     },
   });
 

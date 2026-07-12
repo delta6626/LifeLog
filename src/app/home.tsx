@@ -20,7 +20,7 @@ export default function HomeScreen() {
 
     greetingText: {
       marginTop: theme.spacing.md,
-      color: theme.colors.onSurfaceVariant,
+      color: theme.colors.onPrimaryContainer,
     },
 
     featureButtonContainer: {
