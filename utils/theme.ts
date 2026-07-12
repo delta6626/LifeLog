@@ -16,6 +16,7 @@ export const theme = {
     tertiary: "#C1673D",
     onTertiary: "#FFFFFF",
     outline: "#DAD9C8",
+    muted: "#919b88",
   },
 
   spacing: {
