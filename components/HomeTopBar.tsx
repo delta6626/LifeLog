@@ -26,6 +26,7 @@ export const HomeTopBar = () => {
       </Text>
       <IconButton
         onPress={handleSearchButtonPress}
+        size={20}
         icon={"magnify"}
         mode={"contained-tonal"}
         containerColor={theme.colors.primaryContainer}
