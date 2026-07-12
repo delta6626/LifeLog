@@ -62,7 +62,7 @@ export default function HomeScreen() {
             mode={"contained"}
             style={{ flex: 1 }}
             onPress={() => {
-              // Remove later
+              // TO DO: Remove later
               router.navigate("/entry");
             }}
           >
