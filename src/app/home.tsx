@@ -27,6 +27,11 @@ export default function HomeScreen() {
       marginTop: theme.spacing.sm,
       gap: theme.spacing.md,
     },
+
+    mainTitle: {
+      marginTop: theme.spacing.xl,
+      color: theme.colors.onPrimaryContainer,
+    },
   });
 
   return (
@@ -45,6 +50,12 @@ export default function HomeScreen() {
           <Button icon={"plus"} mode={"contained"} style={{ flex: 1 }}>
             New memory
           </Button>
+        </View>
+
+        <View>
+          <Text variant={"titleLarge"} style={styles.mainTitle}>
+            Your memories
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
