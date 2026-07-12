@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { EntryCard } from "../../components/EntryCard";
 import { HomeTopBar } from "../../components/HomeTopBar";
 import { InsightsCard } from "../../components/InsightsCard";
 import { useAppTheme } from "../../utils/useAppTheme";
@@ -30,6 +31,7 @@ export default function HomeScreen() {
 
     mainTitle: {
       marginTop: theme.spacing.xl,
+      marginBottom: theme.spacing.sm,
       color: theme.colors.onPrimaryContainer,
     },
   });
@@ -56,6 +58,17 @@ export default function HomeScreen() {
           <Text variant={"titleLarge"} style={styles.mainTitle}>
             Your memories
           </Text>
+
+          {/* <Text
+            variant={"titleMedium"}
+            style={{
+              marginBottom: theme.spacing.sm,
+            }}
+          >
+            Today
+          </Text> */}
+
+          <EntryCard />
         </View>
       </ScrollView>
     </SafeAreaView>
