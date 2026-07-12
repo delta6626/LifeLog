@@ -46,7 +46,7 @@ export const EntryCard = () => {
         <Text variant={"titleMedium"} style={styles.titleText}>
           Wrapping up a lonk week
         </Text>
-        <Text variant={"bodyMedium"} style={styles.bodyText}>
+        <Text variant={"bodyMedium"} style={styles.bodyText} numberOfLines={3}>
           Closed my laptop a little early tonight. It's the first time in weeks
           I didn't feel behind on something.
         </Text>
