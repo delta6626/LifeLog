@@ -56,7 +56,16 @@ export default function HomeScreen() {
           <Button mode={"outlined"} onPress={handleFavoriteButtonPress}>
             Favorites
           </Button>
-          <Button icon={"plus"} mode={"contained"} style={{ flex: 1 }}>
+
+          <Button
+            icon={"plus"}
+            mode={"contained"}
+            style={{ flex: 1 }}
+            onPress={() => {
+              // Remove later
+              router.navigate("/entry");
+            }}
+          >
             New memory
           </Button>
         </View>
