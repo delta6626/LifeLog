@@ -53,7 +53,8 @@ export const ScreenHeader = ({ screenHeaderTitle }: ScreenHeaderProps) => {
           {screenHeaderTitle}
         </Text>
 
-        {(screenHeaderTitle === "Edit memory" ||
+        {(screenHeaderTitle === "New memory" ||
+          screenHeaderTitle === "Edit memory" ||
           screenHeaderTitle === "View memory") && <EntryHeaderButtons />}
       </View>
     </View>
