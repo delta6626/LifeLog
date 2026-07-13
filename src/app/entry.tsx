@@ -1,5 +1,5 @@
 import { RichText, Toolbar, useEditorBridge } from "@10play/tentap-editor";
-import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
 import { useAppTheme } from "../../utils/useAppTheme";
@@ -15,8 +15,16 @@ export default function EntryScreen() {
       paddingHorizontal: theme.spacing.xl,
     },
 
-    toolbarView: {
-      height: 40,
+    editor: {
+      flex: 1,
+      backgroundColor: "transparent",
+    },
+
+    toolbarContainer: {
+      position: "absolute",
+      left: theme.spacing.xl,
+      right: theme.spacing.xl,
+      bottom: theme.spacing.xl,
     },
   });
 
@@ -45,25 +53,27 @@ export default function EntryScreen() {
         },
 
         iconActive: {
-          borderRadius: theme.radii.x3l,
           backgroundColor: theme.colors.background,
+          borderRadius: theme.radii.x3l,
         },
-      },
-
-      webview: {
-        backgroundColor: "transparent",
       },
     },
   });
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <ScreenHeader screenHeaderTitle={"View memory"} />
-      <View style={styles.toolbarView}>
+      <ScreenHeader screenHeaderTitle="View memory" />
+
+      <RichText
+        editor={editor}
+        style={styles.editor}
+        showsVerticalScrollIndicator={false}
+      />
+      <KeyboardAvoidingView
+        behavior={"padding"}
+        style={styles.toolbarContainer}
+      >
         <Toolbar editor={editor} hidden={false} />
-      </View>
-      <KeyboardAvoidingView style={{ flex: 1 }}>
-        <RichText editor={editor} />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
