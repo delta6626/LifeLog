@@ -28,7 +28,7 @@ export default function EntryScreen() {
       toolbar: {
         toolbarBody: {
           borderRadius: theme.radii.x3l,
-          backgroundColor: theme.colors.outline,
+          backgroundColor: theme.colors.primaryContainer,
           borderTopWidth: 0,
           borderBottomWidth: 0,
           borderLeftWidth: 0,
@@ -36,12 +36,17 @@ export default function EntryScreen() {
         },
 
         toolbarButton: {
-          backgroundColor: theme.colors.outline,
+          backgroundColor: theme.colors.primaryContainer,
         },
 
         iconWrapper: {
-          backgroundColor: theme.colors.outline,
+          backgroundColor: theme.colors.primaryContainer,
           borderRadius: theme.radii.x3l,
+        },
+
+        iconActive: {
+          borderRadius: theme.radii.x3l,
+          backgroundColor: theme.colors.background,
         },
       },
 
