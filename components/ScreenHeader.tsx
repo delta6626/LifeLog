@@ -1,6 +1,6 @@
 import { router } from "expo-router";
-import { StyleSheet, View } from "react-native";
-import { IconButton, Text } from "react-native-paper";
+import { Pressable, StyleSheet, View } from "react-native";
+import { Icon, Text } from "react-native-paper";
 import { ScreenHeaderTitle } from "../types/ScreenHeaderName";
 import { useAppTheme } from "../utils/useAppTheme";
 
@@ -30,14 +30,13 @@ export const ScreenHeader = ({ screenHeaderTitle }: ScreenHeaderProps) => {
   return (
     <View style={styles.parentContainer}>
       {/* Back button to go to the previous screen */}
-      <IconButton
-        mode={"contained-tonal"}
-        size={20}
-        containerColor={theme.colors.primaryContainer}
-        icon={"arrow-left"}
-        iconColor={theme.colors.onPrimaryContainer}
-        onPress={handleBackButtonPress}
-      ></IconButton>
+      <Pressable onPress={handleBackButtonPress}>
+        <Icon
+          source={"arrow-left"}
+          size={24}
+          color={theme.colors.onPrimaryContainer}
+        ></Icon>
+      </Pressable>
 
       <View>
         <Text variant={"titleMedium"} style={styles.titleText}>
