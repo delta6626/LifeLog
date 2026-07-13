@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { IconButton, Text } from "react-native-paper";
 import { ScreenHeaderTitle } from "../types/ScreenHeaderName";
 import { useAppTheme } from "../utils/useAppTheme";
+import { EntryHeaderButtons } from "./EntryHeaderButtons";
 
 interface ScreenHeaderProps {
   screenHeaderTitle: ScreenHeaderTitle;
@@ -15,11 +16,18 @@ export const ScreenHeader = ({ screenHeaderTitle }: ScreenHeaderProps) => {
     parentContainer: {
       flexDirection: "row",
       alignItems: "center",
-      gap: theme.spacing.sm,
+      gap: theme.spacing.md,
     },
 
     titleText: {
       color: theme.colors.onPrimaryContainer,
+    },
+
+    childContainer: {
+      flex: 1,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
     },
   });
 
@@ -40,10 +48,13 @@ export const ScreenHeader = ({ screenHeaderTitle }: ScreenHeaderProps) => {
         onPress={handleBackButtonPress}
       ></IconButton>
 
-      <View>
+      <View style={styles.childContainer}>
         <Text variant={"titleMedium"} style={styles.titleText}>
           {screenHeaderTitle}
         </Text>
+
+        {(screenHeaderTitle === "Edit memory" ||
+          screenHeaderTitle === "View memory") && <EntryHeaderButtons />}
       </View>
     </View>
   );
