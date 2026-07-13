@@ -37,6 +37,7 @@ export const EntryCard = () => {
 
     iconButtonsContainer: {
       flexDirection: "row",
+      gap: theme.spacing.sm,
     },
   });
 
@@ -57,12 +58,14 @@ export const EntryCard = () => {
           </Text>
           <View style={styles.iconButtonsContainer}>
             <IconButton
+              style={{ margin: 0 }}
               mode={"outlined"}
               size={16}
               icon={"delete-outline"}
               iconColor={theme.colors.muted}
             />
             <IconButton
+              style={{ margin: 0 }}
               mode={"outlined"}
               size={16}
               icon={"heart-outline"}
