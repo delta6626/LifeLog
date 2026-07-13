@@ -24,7 +24,9 @@ export const HomeTopBar = () => {
       >
         LifeLog
       </Text>
+
       <IconButton
+        style={{ margin: 0 }}
         onPress={handleSearchButtonPress}
         size={20}
         icon={"magnify"}

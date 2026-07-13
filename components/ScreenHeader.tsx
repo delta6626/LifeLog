@@ -31,7 +31,7 @@ export const ScreenHeader = ({ screenHeaderTitle }: ScreenHeaderProps) => {
     <View style={styles.parentContainer}>
       {/* Back button to go to the previous screen */}
       <IconButton
-        style={{ marginHorizontal: 0, marginVertical: 0 }}
+        style={{ margin: 0 }}
         mode={"contained-tonal"}
         size={20}
         containerColor={theme.colors.primaryContainer}
