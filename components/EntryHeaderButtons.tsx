@@ -21,7 +21,7 @@ export const EntryHeaderButtons = () => {
         mode={"contained-tonal"}
         size={20}
         containerColor={theme.colors.primaryContainer}
-        icon={"heart"}
+        icon={"heart-outline"}
         iconColor={theme.colors.onPrimaryContainer}
       ></IconButton>
     </View>
