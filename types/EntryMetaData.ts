@@ -1,11 +1,12 @@
-export interface EntryMetaData {
-  id: string;
+import { Entry } from "./Entry";
 
-  title: string;
-  preview: string;
-  wordCount: number;
-  isFavorite: boolean;
-
-  createdAt: EpochTimeStamp;
-  updatedAt: EpochTimeStamp;
-}
+export type EntryMetaData = Pick<
+  Entry,
+  | "id"
+  | "title"
+  | "preview"
+  | "wordCount"
+  | "isFavorite"
+  | "createdAt"
+  | "updatedAt"
+>;
