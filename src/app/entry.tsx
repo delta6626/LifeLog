@@ -31,6 +31,7 @@ export default function EntryScreen() {
         setCurrentEntry({
           ...currentEntry,
           content: editorContent,
+          preview: editorContent.slice(0, 100),
           updatedAt: Date.now(),
         });
 
