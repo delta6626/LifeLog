@@ -41,6 +41,8 @@ export default function HomeScreen() {
     router.navigate("/favorites");
   };
 
+  const handleNewMemoryButtonPress = () => {};
+
   return (
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
@@ -61,10 +63,7 @@ export default function HomeScreen() {
             icon={"plus"}
             mode={"contained"}
             style={{ flex: 1 }}
-            onPress={() => {
-              // TO DO: Remove later
-              router.navigate("/entry");
-            }}
+            onPress={handleNewMemoryButtonPress}
           >
             New memory
           </Button>
