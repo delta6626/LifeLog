@@ -58,7 +58,15 @@ export const createNewEntryFile = async (
   }
 
   const fileContent: Entry = { ...entryMetaData, content: "" };
-  const stringifiedContent = JSON.stringify(fileContent, null, 2);
+  const stringifiedFileContent = JSON.stringify(fileContent, null, 2);
 
-  await entryFile.write(stringifiedContent);
+  await entryFile.write(stringifiedFileContent);
+};
+
+export const updateEntryFile = async (entry: Entry): Promise<void> => {
+  const entriesDirectory = new Directory(Paths.document, ENTRIES_DIRECTORY);
+  const entryFile = new File(entriesDirectory, `${entry.id}.json`);
+  const stringifiedFileContent = JSON.stringify(entry, null, 2);
+
+  await entryFile.write(stringifiedFileContent);
 };
