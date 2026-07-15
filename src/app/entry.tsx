@@ -14,6 +14,7 @@ export default function EntryScreen() {
 
   const editor = useEditorBridge({
     autofocus: entryScreenMode === "read" ? false : true,
+    editable: entryScreenMode === "read" ? false : true,
     avoidIosKeyboard: true,
     initialContent: currentEntry?.content,
     theme: {
