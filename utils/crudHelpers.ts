@@ -70,3 +70,18 @@ export const updateEntryFile = async (entry: Entry): Promise<void> => {
 
   await entryFile.write(stringifiedFileContent);
 };
+
+export const updateMetaDataFile = async (
+  entryMetaData: EntryMetaData,
+): Promise<void> => {
+  const metaDataFile = new File(Paths.document, META_DATA_FILE_NAME);
+  const allEntriesMetaData = await getAllEntriesMetaData();
+  const index = allEntriesMetaData.findIndex(
+    (entry) => entry.id === entryMetaData.id,
+  );
+
+  allEntriesMetaData[index] = entryMetaData;
+  const stringifiedFileContent = JSON.stringify(allEntriesMetaData, null, 2);
+
+  await metaDataFile.write(stringifiedFileContent);
+};
