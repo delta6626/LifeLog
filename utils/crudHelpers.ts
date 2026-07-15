@@ -1,4 +1,5 @@
-import { File, Paths } from "expo-file-system";
+import { Directory, File, Paths } from "expo-file-system";
+import { Entry } from "../types/Entry";
 import { EntryMetaData } from "../types/EntryMetaData";
 
 const META_DATA_FILE_NAME = "metadata.json";
@@ -39,4 +40,25 @@ export const addNewEntryMetaData = async (
 
   const file = new File(Paths.document, META_DATA_FILE_NAME);
   await file.write(JSON.stringify(entries, null, 2));
+};
+
+export const createNewEntryFile = async (
+  entryMetaData: EntryMetaData,
+): Promise<void> => {
+  const entriesDirectory = new Directory(Paths.document, ENTRIES_DIRECTORY);
+
+  if (!entriesDirectory.exists) {
+    await entriesDirectory.create();
+  }
+
+  const entryFile = new File(entriesDirectory, `${entryMetaData.id}.json`);
+
+  if (!entryFile.exists) {
+    await entryFile.create();
+  }
+
+  const fileContent: Entry = { ...entryMetaData, content: "" };
+  const stringifiedContent = JSON.stringify(fileContent, null, 2);
+
+  await entryFile.write(stringifiedContent);
 };
