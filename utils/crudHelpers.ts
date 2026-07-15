@@ -85,3 +85,12 @@ export const updateMetaDataFile = async (
 
   await metaDataFile.write(stringifiedFileContent);
 };
+
+export const getEntryFile = async (entryId: Entry["id"]): Promise<Entry> => {
+  const entriesDirectory = new Directory(Paths.document, ENTRIES_DIRECTORY);
+  const entryFile = new File(entriesDirectory, `${entryId}.json`);
+
+  const fileContents = await entryFile.text();
+
+  return JSON.parse(fileContents) as Entry;
+};
