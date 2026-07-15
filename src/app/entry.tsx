@@ -11,20 +11,32 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
 import { useCurrentEntryStore } from "../../store/currentEntryStore";
 import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
+import { updateEntryFile, updateMetaDataFile } from "../../utils/crudHelpers";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function EntryScreen() {
   const editorRef = useRef<EditorBridge | null>(null);
 
   const theme = useAppTheme();
-  const { currentEntry } = useCurrentEntryStore();
+  const { currentEntry, setCurrentEntry } = useCurrentEntryStore();
   const { entryScreenMode } = useEntryScreenModeStore();
 
   const debouncedSaveEditorContent = useMemo(
     () =>
-      debounce(() => {
+      debounce(async () => {
         if (!editorRef.current) return;
-      }, 500),
+        if (!currentEntry) return;
+
+        const editorContent = await editorRef.current.getText();
+        setCurrentEntry({
+          ...currentEntry,
+          content: editorContent,
+          updatedAt: Date.now(),
+        });
+
+        await updateEntryFile(currentEntry);
+        await updateMetaDataFile(currentEntry);
+      }, 300),
     [],
   );
 
