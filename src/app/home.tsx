@@ -49,7 +49,7 @@ export default function HomeScreen() {
     router.navigate("/favorites");
   };
 
-  const handleNewMemoryButtonPress = () => {
+  const handleNewMemoryButtonPress = async () => {
     const entryMetaData: EntryMetaData = {
       id: randomUUID(),
       isFavorite: false,
@@ -60,7 +60,7 @@ export default function HomeScreen() {
       updatedAt: Date.now(),
     };
 
-    addNewEntryMetaData(entryMetaData);
+    await addNewEntryMetaData(entryMetaData);
 
     // Initialize the current entry so the editor has data when it opens.
     setCurrentEntry({ ...entryMetaData, content: "" });
