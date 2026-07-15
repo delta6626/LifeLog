@@ -1,9 +1,9 @@
 import { create } from "zustand";
-import { CurrentEntry } from "../types/CurrentEntry";
+import { Entry } from "../types/Entry";
 
 interface CurrentEntryStore {
-  currentEntry: CurrentEntry | null;
-  setCurrentEntry: (currentEntry: CurrentEntry) => void;
+  currentEntry: Entry | null;
+  setCurrentEntry: (currentEntry: Entry) => void;
 }
 
 export const useCurrentEntryStore = create<CurrentEntryStore>((set) => ({
