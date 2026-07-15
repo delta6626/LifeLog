@@ -1,4 +1,11 @@
-import { RichText, Toolbar, useEditorBridge } from "@10play/tentap-editor";
+import {
+  EditorBridge,
+  RichText,
+  Toolbar,
+  useEditorBridge,
+} from "@10play/tentap-editor";
+import { debounce } from "lodash";
+import { useEffect, useMemo, useRef } from "react";
 import { KeyboardAvoidingView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
@@ -7,10 +14,19 @@ import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function EntryScreen() {
-  const theme = useAppTheme();
+  const editorRef = useRef<EditorBridge | null>(null);
 
+  const theme = useAppTheme();
   const { currentEntry } = useCurrentEntryStore();
   const { entryScreenMode } = useEntryScreenModeStore();
+
+  const debouncedSaveEditorContent = useMemo(
+    () =>
+      debounce(() => {
+        if (!editorRef.current) return;
+      }, 500),
+    [],
+  );
 
   const editor = useEditorBridge({
     autofocus: entryScreenMode === "read" ? false : true,
@@ -44,6 +60,12 @@ export default function EntryScreen() {
       },
     },
   });
+
+  editorRef.current = editor;
+
+  useEffect(() => {
+    return () => debouncedSaveEditorContent.cancel();
+  }, []);
 
   const styles = StyleSheet.create({
     parentContainer: {
