@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 
 import { randomUUID } from "expo-crypto";
 import { router } from "expo-router";
+import { useEffect } from "react";
 import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { EntryCard } from "../../components/EntryCard";
@@ -14,13 +15,14 @@ import { EntryMetaData } from "../../types/EntryMetaData";
 import {
   addNewEntryMetaData,
   createNewEntryFile,
+  getAllEntriesMetaData,
 } from "../../utils/crudHelpers";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function HomeScreen() {
   const theme = useAppTheme();
 
-  const { metaDataList } = useMetaDataStore();
+  const { metaDataList, setMetaDataList } = useMetaDataStore();
   const { setCurrentEntry } = useCurrentEntryStore();
   const { setEntryScreenMode } = useEntryScreenModeStore();
 
@@ -73,6 +75,15 @@ export default function HomeScreen() {
     setEntryScreenMode("create");
     router.navigate("/entry");
   };
+
+  useEffect(() => {
+    const fetchEntriesMetaData = async () => {
+      const allEntriesMetaData = await getAllEntriesMetaData();
+      setMetaDataList(allEntriesMetaData);
+    };
+
+    fetchEntriesMetaData();
+  }, []);
 
   return (
     <SafeAreaView style={styles.parentContainer}>
