@@ -1,1 +1,1 @@
-export type EntryScreenMode = "edit" | "read";
+export type EntryScreenMode = "create" | "edit" | "read";
