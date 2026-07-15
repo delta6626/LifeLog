@@ -28,6 +28,7 @@ export default function EntryScreen() {
         if (!currentEntry) return;
 
         const editorContent = await editorRef.current.getText();
+
         setCurrentEntry({
           ...currentEntry,
           content: editorContent,
@@ -35,10 +36,21 @@ export default function EntryScreen() {
           updatedAt: Date.now(),
         });
 
-        await updateEntryFile(currentEntry);
-        await updateMetaDataFile(currentEntry);
+        await updateEntryFile({
+          ...currentEntry,
+          content: editorContent,
+          preview: editorContent.slice(0, 100),
+          updatedAt: Date.now(),
+        });
+
+        await updateMetaDataFile({
+          ...currentEntry,
+          preview: editorContent.slice(0, 100),
+          updatedAt: Date.now(),
+        });
       }, 300),
-    [],
+
+    [currentEntry],
   );
 
   const editor = useEditorBridge({
@@ -71,6 +83,10 @@ export default function EntryScreen() {
           borderRadius: theme.radii.x3l,
         },
       },
+    },
+
+    onChange: () => {
+      debouncedSaveEditorContent();
     },
   });
 
