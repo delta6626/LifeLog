@@ -9,6 +9,7 @@ import { HomeTopBar } from "../../components/HomeTopBar";
 import { InsightsCard } from "../../components/InsightsCard";
 import { useCurrentEntryStore } from "../../store/currentEntryStore";
 import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
+import { useMetaDataStore } from "../../store/metaDataStore";
 import { EntryMetaData } from "../../types/EntryMetaData";
 import {
   addNewEntryMetaData,
@@ -19,6 +20,7 @@ import { useAppTheme } from "../../utils/useAppTheme";
 export default function HomeScreen() {
   const theme = useAppTheme();
 
+  const { metaDataList } = useMetaDataStore();
   const { setCurrentEntry } = useCurrentEntryStore();
   const { setEntryScreenMode } = useEntryScreenModeStore();
 
@@ -112,7 +114,9 @@ export default function HomeScreen() {
             Today
           </Text> */}
 
-          <EntryCard />
+          {metaDataList.map((metaData) => {
+            return <EntryCard key={metaData.id} entryMetaData={metaData} />;
+          })}
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -1,8 +1,13 @@
 import { StyleSheet, View } from "react-native";
 import { IconButton, Text, TouchableRipple } from "react-native-paper";
+import { EntryMetaData } from "../types/EntryMetaData";
 import { useAppTheme } from "../utils/useAppTheme";
 
-export const EntryCard = () => {
+interface EntryCardProps {
+  entryMetaData: EntryMetaData;
+}
+
+export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
   const theme = useAppTheme();
 
   const styles = StyleSheet.create({
@@ -45,16 +50,15 @@ export const EntryCard = () => {
     <TouchableRipple style={styles.parentContainer}>
       <View>
         <Text variant={"titleMedium"} style={styles.titleText}>
-          Wrapping up a lonk week
+          {entryMetaData.title}
         </Text>
         <Text variant={"bodyMedium"} style={styles.bodyText} numberOfLines={3}>
-          Closed my laptop a little early tonight. It's the first time in weeks
-          I didn't feel behind on something.
+          {entryMetaData.preview}
         </Text>
 
         <View style={styles.bottomContainer}>
           <Text variant={"bodySmall"} style={styles.dateText}>
-            10 July, 11:33 PM
+            {entryMetaData.createdAt}
           </Text>
           <View style={styles.iconButtonsContainer}>
             <IconButton
