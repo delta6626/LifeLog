@@ -1,15 +1,23 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
+import { randomUUID } from "expo-crypto";
 import { router } from "expo-router";
 import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { EntryCard } from "../../components/EntryCard";
 import { HomeTopBar } from "../../components/HomeTopBar";
 import { InsightsCard } from "../../components/InsightsCard";
+import { useCurrentEntryStore } from "../../store/currentEntryStore";
+import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
+import { EntryMetaData } from "../../types/EntryMetaData";
+import { addNewEntryMetaData } from "../../utils/crudHelpers";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function HomeScreen() {
   const theme = useAppTheme();
+
+  const { setCurrentEntry } = useCurrentEntryStore();
+  const { setEntryScreenMode } = useEntryScreenModeStore();
 
   const styles = StyleSheet.create({
     parentContainer: {
@@ -41,7 +49,24 @@ export default function HomeScreen() {
     router.navigate("/favorites");
   };
 
-  const handleNewMemoryButtonPress = () => {};
+  const handleNewMemoryButtonPress = () => {
+    const entryMetaData: EntryMetaData = {
+      id: randomUUID(),
+      isFavorite: false,
+      title: "New memory",
+      preview: "",
+      wordCount: 0,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    };
+
+    addNewEntryMetaData(entryMetaData);
+
+    // Initialize the current entry so the editor has data when it opens.
+    setCurrentEntry({ ...entryMetaData, content: "" });
+    setEntryScreenMode("create");
+    router.navigate("/entry");
+  };
 
   return (
     <SafeAreaView style={styles.parentContainer}>
