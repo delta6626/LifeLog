@@ -10,7 +10,10 @@ import { InsightsCard } from "../../components/InsightsCard";
 import { useCurrentEntryStore } from "../../store/currentEntryStore";
 import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
 import { EntryMetaData } from "../../types/EntryMetaData";
-import { addNewEntryMetaData } from "../../utils/crudHelpers";
+import {
+  addNewEntryMetaData,
+  createNewEntryFile,
+} from "../../utils/crudHelpers";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function HomeScreen() {
@@ -61,6 +64,7 @@ export default function HomeScreen() {
     };
 
     await addNewEntryMetaData(entryMetaData);
+    await createNewEntryFile(entryMetaData);
 
     // Initialize the current entry so the editor has data when it opens.
     setCurrentEntry({ ...entryMetaData, content: "" });
