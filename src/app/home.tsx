@@ -23,7 +23,7 @@ export default function HomeScreen() {
   const theme = useAppTheme();
 
   const { metaDataList, setMetaDataList } = useMetaDataStore();
-  const { setCurrentEntry } = useCurrentEntryStore();
+  const { setCurrentEntryId } = useCurrentEntryStore();
   const { setEntryScreenMode } = useEntryScreenModeStore();
 
   const styles = StyleSheet.create({
@@ -70,8 +70,7 @@ export default function HomeScreen() {
     await addNewEntryMetaData(entryMetaData);
     await createNewEntryFile(entryMetaData);
 
-    // Initialize the current entry so the editor has data when it opens.
-    setCurrentEntry({ ...entryMetaData, content: "" });
+    setCurrentEntryId(entryMetaData.id);
     setEntryScreenMode("create");
     router.navigate("/entry");
   };

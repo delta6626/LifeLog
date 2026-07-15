@@ -5,59 +5,61 @@ import {
   useEditorBridge,
 } from "@10play/tentap-editor";
 import { debounce } from "lodash";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
 import { useCurrentEntryStore } from "../../store/currentEntryStore";
 import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
-import { updateEntryFile, updateMetaDataFile } from "../../utils/crudHelpers";
+import { Entry } from "../../types/Entry";
+import {
+  getEntryFile,
+  updateEntryFile,
+  updateMetaDataFile,
+} from "../../utils/crudHelpers";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function EntryScreen() {
   const editorRef = useRef<EditorBridge | null>(null);
 
   const theme = useAppTheme();
-  const { currentEntry, setCurrentEntry } = useCurrentEntryStore();
+  const { currentEntryId } = useCurrentEntryStore();
   const { entryScreenMode } = useEntryScreenModeStore();
+
+  const [entry, setEntry] = useState<Entry | null>(null);
+  const entryRef = useRef<Entry | null>(null);
 
   const debouncedSaveEditorContent = useMemo(
     () =>
       debounce(async () => {
         if (!editorRef.current) return;
+
+        const currentEntry = entryRef.current;
         if (!currentEntry) return;
 
         const editorContent = await editorRef.current.getText();
 
-        setCurrentEntry({
+        const updatedEntry: Entry = {
           ...currentEntry,
           content: editorContent,
           preview: editorContent.slice(0, 100),
           updatedAt: Date.now(),
-        });
+        };
 
-        await updateEntryFile({
-          ...currentEntry,
-          content: editorContent,
-          preview: editorContent.slice(0, 100),
-          updatedAt: Date.now(),
-        });
+        entryRef.current = updatedEntry;
+        setEntry(updatedEntry);
 
-        await updateMetaDataFile({
-          ...currentEntry,
-          preview: editorContent.slice(0, 100),
-          updatedAt: Date.now(),
-        });
+        await updateEntryFile(updatedEntry);
+        await updateMetaDataFile(updatedEntry);
       }, 300),
-
-    [currentEntry],
+    [],
   );
 
   const editor = useEditorBridge({
-    autofocus: entryScreenMode === "read" ? false : true,
-    editable: entryScreenMode === "read" ? false : true,
+    autofocus: entryScreenMode !== "read",
+    editable: entryScreenMode !== "read",
     avoidIosKeyboard: true,
-    initialContent: currentEntry?.content,
+
     theme: {
       toolbar: {
         toolbarBody: {
@@ -93,8 +95,25 @@ export default function EntryScreen() {
   editorRef.current = editor;
 
   useEffect(() => {
-    return () => debouncedSaveEditorContent.cancel();
-  }, []);
+    const loadEntry = async () => {
+      if (!currentEntryId) return;
+
+      const loadedEntry = await getEntryFile(currentEntryId);
+
+      setEntry(loadedEntry);
+      entryRef.current = loadedEntry;
+
+      editor.setContent(loadedEntry.content);
+    };
+
+    loadEntry();
+  }, [currentEntryId]);
+
+  useEffect(() => {
+    return () => {
+      debouncedSaveEditorContent.cancel();
+    };
+  }, [debouncedSaveEditorContent]);
 
   const styles = StyleSheet.create({
     parentContainer: {
@@ -134,14 +153,9 @@ export default function EntryScreen() {
         style={styles.editor}
         showsVerticalScrollIndicator={false}
       />
-      <KeyboardAvoidingView
-        behavior={"padding"}
-        style={styles.toolbarContainer}
-      >
-        <Toolbar
-          editor={editor}
-          hidden={entryScreenMode === "read" ? true : false}
-        />
+
+      <KeyboardAvoidingView behavior="padding" style={styles.toolbarContainer}>
+        <Toolbar editor={editor} hidden={entryScreenMode === "read"} />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
