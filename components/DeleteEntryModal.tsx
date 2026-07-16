@@ -19,6 +19,7 @@ export const DeleteEntryModal = () => {
 
   const handleDeleteButtonPress = async () => {
     if (!idForDeletion) return;
+
     await deleteEntry(idForDeletion);
     await refreshMetaData();
 
