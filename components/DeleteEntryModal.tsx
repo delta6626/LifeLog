@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
 import { Button, IconButton, Modal, Portal, Text } from "react-native-paper";
 import { useDeleteEntryModalStore } from "../store/deleteEntryModalStore";
+import { deleteEntry } from "../utils/crudHelpers";
 import { useAppTheme } from "../utils/useAppTheme";
 
 export const DeleteEntryModal = () => {
-  const { isVisible, setIsVisible, setIdForDeletion } =
+  const { isVisible, setIsVisible, idForDeletion, setIdForDeletion } =
     useDeleteEntryModalStore();
   const theme = useAppTheme();
 
@@ -13,7 +14,13 @@ export const DeleteEntryModal = () => {
     setIdForDeletion(null);
   };
 
-  const handleDeleteButtonPress = () => {};
+  const handleDeleteButtonPress = async () => {
+    if (!idForDeletion) return;
+    await deleteEntry(idForDeletion);
+
+    // Auto dismiss the modal after deletion
+    handleCancelButtonPress();
+  };
 
   const styles = StyleSheet.create({
     modal: {
