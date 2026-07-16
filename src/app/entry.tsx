@@ -105,6 +105,10 @@ export default function EntryScreen() {
       setEntry(loadedEntry);
       entryRef.current = loadedEntry;
 
+      while (!editor.getEditorState().isReady) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+
       editor.setContent(loadedEntry.content);
     };
 
