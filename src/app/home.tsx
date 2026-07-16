@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { randomUUID } from "expo-crypto";
-import { router } from "expo-router";
-import { useEffect } from "react";
+import { router, useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { EntryCard } from "../../components/EntryCard";
@@ -75,14 +75,16 @@ export default function HomeScreen() {
     router.navigate("/entry");
   };
 
-  useEffect(() => {
-    const fetchEntriesMetaData = async () => {
-      const allEntriesMetaData = await getAllEntriesMetaData();
-      setMetaDataList(allEntriesMetaData);
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const fetchEntriesMetaData = async () => {
+        const allEntriesMetaData = await getAllEntriesMetaData();
+        setMetaDataList(allEntriesMetaData);
+      };
 
-    fetchEntriesMetaData();
-  }, []);
+      fetchEntriesMetaData();
+    }, [setMetaDataList]),
+  );
 
   return (
     <SafeAreaView style={styles.parentContainer}>
