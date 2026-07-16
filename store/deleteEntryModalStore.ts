@@ -5,7 +5,7 @@ interface DeleteEntryModalStore {
   isVisible: boolean;
   idForDeletion: Entry["id"] | null;
   setIsVisible: (isVisible: boolean) => void;
-  setIdForDeletion: (id: Entry["id"]) => void;
+  setIdForDeletion: (id: Entry["id"] | null) => void;
 }
 
 export const useDeleteEntryModalStore = create<DeleteEntryModalStore>(
