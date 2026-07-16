@@ -1,6 +1,9 @@
+import { router } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { IconButton, Text, TouchableRipple } from "react-native-paper";
+import { useCurrentEntryStore } from "../store/currentEntryStore";
 import { useDeleteEntryModalStore } from "../store/deleteEntryModalStore";
+import { useEntryScreenModeStore } from "../store/entryScreenModeStore";
 import { EntryMetaData } from "../types/EntryMetaData";
 import { useAppTheme } from "../utils/useAppTheme";
 
@@ -11,7 +14,15 @@ interface EntryCardProps {
 export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
   const theme = useAppTheme();
 
+  const { setCurrentEntryId } = useCurrentEntryStore();
+  const { setEntryScreenMode } = useEntryScreenModeStore();
   const { setIdForDeletion, setIsVisible } = useDeleteEntryModalStore();
+
+  const handleEntryCardPress = () => {
+    setCurrentEntryId(entryMetaData.id);
+    setEntryScreenMode("read");
+    router.navigate("/entry");
+  };
 
   const startDeletionProcess = () => {
     // Stores the entry ID to be deleted and opens the Delete Entry modal
@@ -56,7 +67,10 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
   });
 
   return (
-    <TouchableRipple style={styles.parentContainer}>
+    <TouchableRipple
+      style={styles.parentContainer}
+      onPress={handleEntryCardPress}
+    >
       <View>
         <Text variant={"titleMedium"} style={styles.titleText}>
           {entryMetaData.title}
