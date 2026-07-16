@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { IconButton, Text, TouchableRipple } from "react-native-paper";
+import { useDeleteEntryModalStore } from "../store/deleteEntryModalStore";
 import { EntryMetaData } from "../types/EntryMetaData";
 import { useAppTheme } from "../utils/useAppTheme";
 
@@ -9,6 +10,14 @@ interface EntryCardProps {
 
 export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
   const theme = useAppTheme();
+
+  const { setIdForDeletion, setIsVisible } = useDeleteEntryModalStore();
+
+  const startDeletionProcess = () => {
+    // Stores the entry ID to be deleted and opens the Delete Entry modal
+    setIdForDeletion(entryMetaData.id);
+    setIsVisible(true);
+  };
 
   const styles = StyleSheet.create({
     parentContainer: {
@@ -67,6 +76,7 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
               size={16}
               icon={"delete-outline"}
               iconColor={theme.colors.muted}
+              onPress={startDeletionProcess}
             />
             <IconButton
               style={{ margin: 0 }}
