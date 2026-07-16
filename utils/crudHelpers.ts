@@ -94,3 +94,24 @@ export const getEntryFile = async (entryId: Entry["id"]): Promise<Entry> => {
 
   return JSON.parse(fileContents) as Entry;
 };
+
+export const deleteEntry = async (entryId: Entry["id"]): Promise<void> => {
+  // Delete the entry file
+  const entriesDirectory = new Directory(Paths.document, ENTRIES_DIRECTORY);
+  const entryFile = new File(entriesDirectory, `${entryId}.json`);
+
+  if (entryFile.exists) {
+    await entryFile.delete();
+  }
+
+  // Remove the metadata
+  const metaDataFile = new File(Paths.document, META_DATA_FILE_NAME);
+  const allEntriesMetaData = await getAllEntriesMetaData();
+
+  const updatedMetaData = allEntriesMetaData.filter(
+    (entry) => entry.id !== entryId,
+  );
+  const stringifiedMetaData = JSON.stringify(updatedMetaData, null, 2);
+
+  await metaDataFile.write(stringifiedMetaData);
+};
