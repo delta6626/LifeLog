@@ -155,7 +155,12 @@ export default function EntryScreen() {
         }
       />
 
-      <TextInput mode={"flat"} placeholder="Title" style={styles.titleInput} />
+      <TextInput
+        mode={"flat"}
+        placeholder="Title"
+        style={styles.titleInput}
+        editable={entryScreenMode != "read"}
+      />
 
       <RichText
         editor={editor}
