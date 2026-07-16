@@ -7,6 +7,7 @@ import {
 import { debounce } from "lodash";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet } from "react-native";
+import { TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
 import { useCurrentEntryStore } from "../../store/currentEntryStore";
@@ -134,6 +135,12 @@ export default function EntryScreen() {
       right: theme.spacing.xl,
       bottom: theme.spacing.xl,
     },
+
+    titleInput: {
+      backgroundColor: "transparent",
+      margin: 0,
+      paddingHorizontal: 0,
+    },
   });
 
   return (
@@ -147,6 +154,8 @@ export default function EntryScreen() {
               : "View memory"
         }
       />
+
+      <TextInput mode={"flat"} placeholder="Title" style={styles.titleInput} />
 
       <RichText
         editor={editor}
