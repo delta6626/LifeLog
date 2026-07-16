@@ -4,8 +4,16 @@ import { useDeleteEntryModalStore } from "../store/deleteEntryModalStore";
 import { useAppTheme } from "../utils/useAppTheme";
 
 export const DeleteEntryModal = () => {
-  const { isVisible } = useDeleteEntryModalStore();
+  const { isVisible, setIsVisible, setIdForDeletion } =
+    useDeleteEntryModalStore();
   const theme = useAppTheme();
+
+  const handleCancelButtonPress = () => {
+    setIsVisible(false);
+    setIdForDeletion(null);
+  };
+
+  const handleDeleteButtonPress = () => {};
 
   const styles = StyleSheet.create({
     modal: {
@@ -47,7 +55,7 @@ export const DeleteEntryModal = () => {
       <Modal
         contentContainerStyle={styles.modal}
         visible={isVisible}
-        dismissable={true}
+        onDismiss={handleCancelButtonPress}
       >
         <IconButton
           icon={"delete-outline"}
@@ -59,16 +67,21 @@ export const DeleteEntryModal = () => {
           Delete this memory?
         </Text>
         <Text variant={"bodyMedium"} style={styles.subtitle}>
-          This memory will be permanently deleted. This can't be undone.
+          This memory will be permanently deleted. This action can't be undone.
         </Text>
 
-        <Button mode={"contained"} style={styles.cancelButton}>
+        <Button
+          mode={"contained"}
+          style={styles.cancelButton}
+          onPress={handleCancelButtonPress}
+        >
           Cancel
         </Button>
         <Button
           mode={"contained"}
           style={styles.deleteButton}
           textColor={theme.colors.error}
+          onPress={handleDeleteButtonPress}
         >
           Delete
         </Button>
