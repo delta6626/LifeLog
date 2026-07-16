@@ -69,7 +69,10 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
   return (
     <TouchableRipple
       style={styles.parentContainer}
-      onPress={handleEntryCardPress}
+      onPress={(e) => {
+        e.stopPropagation();
+        handleEntryCardPress();
+      }}
     >
       <View>
         <Text variant={"titleMedium"} style={styles.titleText}>
