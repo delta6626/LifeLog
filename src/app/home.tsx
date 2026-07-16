@@ -83,6 +83,7 @@ export default function HomeScreen() {
       };
 
       fetchEntriesMetaData();
+      setCurrentEntryId(null);
     }, [setMetaDataList]),
   );
 
