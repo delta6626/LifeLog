@@ -1,13 +1,16 @@
 import { StyleSheet } from "react-native";
 import { Button, IconButton, Modal, Portal, Text } from "react-native-paper";
 import { useDeleteEntryModalStore } from "../store/deleteEntryModalStore";
+import { useMetaDataStore } from "../store/metaDataStore";
 import { deleteEntry } from "../utils/crudHelpers";
 import { useAppTheme } from "../utils/useAppTheme";
 
 export const DeleteEntryModal = () => {
+  const theme = useAppTheme();
+
   const { isVisible, setIsVisible, idForDeletion, setIdForDeletion } =
     useDeleteEntryModalStore();
-  const theme = useAppTheme();
+  const { refreshMetaData } = useMetaDataStore();
 
   const handleCancelButtonPress = () => {
     setIsVisible(false);
@@ -17,6 +20,7 @@ export const DeleteEntryModal = () => {
   const handleDeleteButtonPress = async () => {
     if (!idForDeletion) return;
     await deleteEntry(idForDeletion);
+    await refreshMetaData();
 
     // Auto dismiss the modal after deletion
     handleCancelButtonPress();
