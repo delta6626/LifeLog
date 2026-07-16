@@ -16,14 +16,13 @@ import { EntryMetaData } from "../../types/EntryMetaData";
 import {
   addNewEntryMetaData,
   createNewEntryFile,
-  getAllEntriesMetaData,
 } from "../../utils/crudHelpers";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function HomeScreen() {
   const theme = useAppTheme();
 
-  const { metaDataList, setMetaDataList } = useMetaDataStore();
+  const { metaDataList, setMetaDataList, refreshMetaData } = useMetaDataStore();
   const { setCurrentEntryId } = useCurrentEntryStore();
   const { setEntryScreenMode } = useEntryScreenModeStore();
 
@@ -78,12 +77,7 @@ export default function HomeScreen() {
 
   useFocusEffect(
     useCallback(() => {
-      const fetchEntriesMetaData = async () => {
-        const allEntriesMetaData = await getAllEntriesMetaData();
-        setMetaDataList(allEntriesMetaData);
-      };
-
-      fetchEntriesMetaData();
+      refreshMetaData();
       setCurrentEntryId(null);
     }, [setMetaDataList]),
   );
