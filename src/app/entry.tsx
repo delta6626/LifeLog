@@ -38,12 +38,13 @@ export default function EntryScreen() {
         const currentEntry = entryRef.current;
         if (!currentEntry) return;
 
-        const editorContent = await editorRef.current.getText();
+        const editorContent = await editorRef.current.getHTML();
+        const plainTextContent = await editorRef.current.getText();
 
         const updatedEntry: Entry = {
           ...currentEntry,
           content: editorContent,
-          preview: editorContent.slice(0, 100),
+          preview: plainTextContent.slice(0, 100),
           updatedAt: Date.now(),
         };
 
