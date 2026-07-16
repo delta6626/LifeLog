@@ -5,6 +5,7 @@ import { router, useFocusEffect } from "expo-router";
 import { useCallback } from "react";
 import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { DeleteEntryModal } from "../../components/DeleteEntryModal";
 import { EntryCard } from "../../components/EntryCard";
 import { HomeTopBar } from "../../components/HomeTopBar";
 import { InsightsCard } from "../../components/InsightsCard";
@@ -89,6 +90,8 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
+      <DeleteEntryModal />
+
       <ScrollView>
         <HomeTopBar />
 
