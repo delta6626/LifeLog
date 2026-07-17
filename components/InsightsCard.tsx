@@ -3,6 +3,7 @@ import { Text } from "react-native-paper";
 import { useMetaDataStore } from "../store/metaDataStore";
 import { getEntriesThisYear } from "../utils/getEntriesThisYear";
 import { useAppTheme } from "../utils/useAppTheme";
+import { getFormattedWordCount, getTotalWordCount } from "../utils/wordCount";
 
 export const InsightsCard = () => {
   const theme = useAppTheme();
@@ -67,7 +68,7 @@ export const InsightsCard = () => {
 
       <View style={styles.insightBox}>
         <Text variant={"titleMedium"} style={styles.insightBoxText}>
-          43.4K
+          {getFormattedWordCount(getTotalWordCount(metaDataList))}
         </Text>
         <Text variant={"labelSmall"} style={styles.insightBoxSubtext}>
           Words
