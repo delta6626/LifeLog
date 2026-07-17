@@ -60,7 +60,7 @@ export default function HomeScreen() {
     const entryMetaData: EntryMetaData = {
       id: randomUUID(),
       isFavorite: false,
-      title: "New memory",
+      title: "",
       preview: "",
       wordCount: 0,
       createdAt: Date.now(),
