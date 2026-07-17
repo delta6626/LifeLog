@@ -7,7 +7,7 @@ import { useEntryScreenModeStore } from "../store/entryScreenModeStore";
 import { useMetaDataStore } from "../store/metaDataStore";
 import { EntryMetaData } from "../types/EntryMetaData";
 import { toggleEntryFavoriteStatus } from "../utils/crudHelpers";
-import { getFormattedDate } from "../utils/getFormattedDate";
+import { formatDayDate } from "../utils/formatDayDate";
 import { useAppTheme } from "../utils/useAppTheme";
 
 interface EntryCardProps {
@@ -100,7 +100,7 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
 
         <View style={styles.bottomContainer}>
           <Text variant={"bodySmall"} style={styles.dateText}>
-            {getFormattedDate(entryMetaData.createdAt)}
+            {formatDayDate(entryMetaData.createdAt)}
           </Text>
           <View style={styles.iconButtonsContainer}>
             <IconButton

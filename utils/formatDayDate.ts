@@ -1,4 +1,4 @@
-export const getFormattedDate = (timestamp: EpochTimeStamp): string => {
+export const formatDayDate = (timestamp: EpochTimeStamp): string => {
   return new Intl.DateTimeFormat("en-GB", {
     weekday: "long",
     day: "numeric",
