@@ -18,6 +18,7 @@ import {
   createNewEntryFile,
 } from "../../utils/crudHelpers";
 import { getGreetingText } from "../../utils/getGreetingText";
+import { groupEntriesByMonth } from "../../utils/groupEntriesByMonth";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function HomeScreen() {
@@ -27,31 +28,7 @@ export default function HomeScreen() {
   const { setCurrentEntryId } = useCurrentEntryStore();
   const { setEntryScreenMode } = useEntryScreenModeStore();
 
-  const styles = StyleSheet.create({
-    parentContainer: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
-      paddingVertical: theme.spacing.xl,
-      paddingHorizontal: theme.spacing.xl,
-    },
-
-    greetingText: {
-      marginTop: theme.spacing.md,
-      color: theme.colors.onPrimaryContainer,
-    },
-
-    featureButtonContainer: {
-      flexDirection: "row",
-      marginTop: theme.spacing.sm,
-      gap: theme.spacing.md,
-    },
-
-    mainTitle: {
-      marginTop: theme.spacing.xl,
-      marginBottom: theme.spacing.sm,
-      color: theme.colors.onPrimaryContainer,
-    },
-  });
+  const groupedEntries = groupEntriesByMonth(metaDataList);
 
   const handleFavoriteButtonPress = () => {
     router.navigate("/favorites");
@@ -82,6 +59,41 @@ export default function HomeScreen() {
       setCurrentEntryId(null);
     }, [setMetaDataList]),
   );
+
+  const styles = StyleSheet.create({
+    parentContainer: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+      paddingVertical: theme.spacing.xl,
+      paddingHorizontal: theme.spacing.xl,
+    },
+
+    greetingText: {
+      marginTop: theme.spacing.md,
+      color: theme.colors.onPrimaryContainer,
+    },
+
+    featureButtonContainer: {
+      flexDirection: "row",
+      marginTop: theme.spacing.sm,
+      gap: theme.spacing.md,
+    },
+
+    mainTitle: {
+      marginTop: theme.spacing.xl,
+      marginBottom: theme.spacing.sm,
+      color: theme.colors.onPrimaryContainer,
+    },
+
+    groupTitle: {
+      marginTop: theme.spacing.md,
+      marginBottom: theme.spacing.sm,
+    },
+
+    groupEntriesContainer: {
+      gap: theme.spacing.sm,
+    },
+  });
 
   return (
     <SafeAreaView style={styles.parentContainer}>
@@ -116,18 +128,19 @@ export default function HomeScreen() {
             Your memories
           </Text>
 
-          {/* <Text
-            variant={"titleMedium"}
-            style={{
-              marginBottom: theme.spacing.sm,
-            }}
-          >
-            Today
-          </Text> */}
+          {groupedEntries.map((group) => (
+            <View key={group.title} style={styles.groupEntriesContainer}>
+              <Text variant="titleMedium" style={styles.groupTitle}>
+                {group.title}
+              </Text>
 
-          {metaDataList.map((metaData) => {
-            return <EntryCard key={metaData.id} entryMetaData={metaData} />;
-          })}
+              <View style={styles.groupEntriesContainer}>
+                {group.entries.map((entry) => (
+                  <EntryCard key={entry.id} entryMetaData={entry} />
+                ))}
+              </View>
+            </View>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
