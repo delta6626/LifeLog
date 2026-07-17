@@ -27,6 +27,7 @@ export default function EntryScreen() {
   const { currentEntryId } = useCurrentEntryStore();
   const { entryScreenMode } = useEntryScreenModeStore();
 
+  const [title, setTitle] = useState<string>();
   const [entry, setEntry] = useState<Entry | null>(null);
   const entryRef = useRef<Entry | null>(null);
 
@@ -45,6 +46,26 @@ export default function EntryScreen() {
           ...currentEntry,
           content: editorContent,
           preview: plainTextContent.slice(0, 100),
+          updatedAt: Date.now(),
+        };
+
+        entryRef.current = updatedEntry;
+        setEntry(updatedEntry);
+
+        await updateEntryFile(updatedEntry);
+        await updateMetaDataFile(updatedEntry);
+      }, 300),
+    [],
+  );
+
+  const debouncedSaveTitle = useMemo(
+    () =>
+      debounce(async (title: string) => {
+        if (!entryRef.current) return;
+
+        const updatedEntry = {
+          ...entryRef.current,
+          title,
           updatedAt: Date.now(),
         };
 
@@ -94,6 +115,11 @@ export default function EntryScreen() {
     },
   });
 
+  const handleTitleChange = (text: string) => {
+    setTitle(text);
+    debouncedSaveTitle(text);
+  };
+
   useEffect(() => {
     editorRef.current = editor;
   }, [editor]);
@@ -104,6 +130,7 @@ export default function EntryScreen() {
 
       const loadedEntry = await getEntryFile(currentEntryId);
 
+      setTitle(loadedEntry.title);
       setEntry(loadedEntry);
       entryRef.current = loadedEntry;
 
@@ -163,6 +190,8 @@ export default function EntryScreen() {
       />
 
       <TextInput
+        value={title}
+        onChangeText={handleTitleChange}
         mode={"flat"}
         placeholder="Title"
         style={styles.titleInput}
