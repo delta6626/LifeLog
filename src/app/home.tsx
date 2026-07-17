@@ -64,6 +64,9 @@ export default function HomeScreen() {
     parentContainer: {
       flex: 1,
       backgroundColor: theme.colors.background,
+    },
+
+    childContainer: {
       paddingVertical: theme.spacing.xl,
       paddingHorizontal: theme.spacing.xl,
     },
@@ -100,47 +103,49 @@ export default function HomeScreen() {
       <DeleteEntryModal />
 
       <ScrollView>
-        <HomeTopBar />
+        <View style={styles.childContainer}>
+          <HomeTopBar />
 
-        <Text variant={"titleMedium"} style={styles.greetingText}>
-          {getGreetingText()}
-        </Text>
-
-        <InsightsCard />
-
-        <View style={styles.featureButtonContainer}>
-          <Button mode={"outlined"} onPress={handleFavoriteButtonPress}>
-            Favorites
-          </Button>
-
-          <Button
-            icon={"plus"}
-            mode={"contained"}
-            style={{ flex: 1 }}
-            onPress={handleNewMemoryButtonPress}
-          >
-            New memory
-          </Button>
-        </View>
-
-        <View>
-          <Text variant={"titleLarge"} style={styles.mainTitle}>
-            Your memories
+          <Text variant={"titleMedium"} style={styles.greetingText}>
+            {getGreetingText()}
           </Text>
 
-          {groupedEntries.map((group) => (
-            <View key={group.title} style={styles.groupEntriesContainer}>
-              <Text variant="titleMedium" style={styles.groupTitle}>
-                {group.title}
-              </Text>
+          <InsightsCard />
 
-              <View style={styles.groupEntriesContainer}>
-                {group.entries.map((entry) => (
-                  <EntryCard key={entry.id} entryMetaData={entry} />
-                ))}
+          <View style={styles.featureButtonContainer}>
+            <Button mode={"outlined"} onPress={handleFavoriteButtonPress}>
+              Favorites
+            </Button>
+
+            <Button
+              icon={"plus"}
+              mode={"contained"}
+              style={{ flex: 1 }}
+              onPress={handleNewMemoryButtonPress}
+            >
+              New memory
+            </Button>
+          </View>
+
+          <View>
+            <Text variant={"titleLarge"} style={styles.mainTitle}>
+              Your memories
+            </Text>
+
+            {groupedEntries.map((group) => (
+              <View key={group.title} style={styles.groupEntriesContainer}>
+                <Text variant="titleMedium" style={styles.groupTitle}>
+                  {group.title}
+                </Text>
+
+                <View style={styles.groupEntriesContainer}>
+                  {group.entries.map((entry) => (
+                    <EntryCard key={entry.id} entryMetaData={entry} />
+                  ))}
+                </View>
               </View>
-            </View>
-          ))}
+            ))}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
