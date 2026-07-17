@@ -45,7 +45,10 @@ export default function EntryScreen() {
         const updatedEntry: Entry = {
           ...currentEntry,
           content: editorContent,
-          preview: plainTextContent.slice(0, 100),
+          preview: plainTextContent
+            .replace(/\n{2,}/g, "\n")
+            .trim()
+            .slice(0, 100),
           updatedAt: Date.now(),
         };
 
