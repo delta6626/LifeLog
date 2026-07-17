@@ -116,7 +116,7 @@ export const deleteEntry = async (entryId: Entry["id"]): Promise<void> => {
   await metaDataFile.write(stringifiedMetaData);
 };
 
-export const flipEntryFavoriteProperty = async (
+export const toggleEntryFavoriteStatus = async (
   entryId: Entry["id"],
 ): Promise<void> => {
   const entry = await getEntryFile(entryId);
