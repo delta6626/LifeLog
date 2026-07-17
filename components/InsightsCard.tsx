@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { useMetaDataStore } from "../store/metaDataStore";
+import { getEntriesThisYear } from "../utils/getEntriesThisYear";
 import { useAppTheme } from "../utils/useAppTheme";
 
 export const InsightsCard = () => {
@@ -55,7 +56,7 @@ export const InsightsCard = () => {
 
       <View style={styles.insightBox}>
         <Text variant={"titleMedium"} style={styles.insightBoxText}>
-          6
+          {getEntriesThisYear(metaDataList)}
         </Text>
         <Text variant={"labelSmall"} style={styles.insightBoxSubtext}>
           This year
