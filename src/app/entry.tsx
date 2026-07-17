@@ -94,7 +94,9 @@ export default function EntryScreen() {
     },
   });
 
-  editorRef.current = editor;
+  useEffect(() => {
+    editorRef.current = editor;
+  }, [editor]);
 
   useEffect(() => {
     const loadEntry = async () => {
