@@ -192,6 +192,8 @@ export default function EntryScreen() {
       <TextInput
         value={title}
         onChangeText={handleTitleChange}
+        maxLength={250}
+        multiline={true}
         mode={"flat"}
         placeholder="Title"
         style={styles.titleInput}

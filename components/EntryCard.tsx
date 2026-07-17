@@ -84,7 +84,11 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
       }}
     >
       <View>
-        <Text variant={"titleMedium"} style={styles.titleText}>
+        <Text
+          variant={"titleMedium"}
+          style={styles.titleText}
+          numberOfLines={2}
+        >
           {entryMetaData.title}
         </Text>
         <Text variant={"bodyMedium"} style={styles.bodyText} numberOfLines={3}>
