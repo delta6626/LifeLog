@@ -23,7 +23,7 @@ export const EntryHeaderButtons = () => {
         mode={"contained-tonal"}
         size={20}
         containerColor={theme.colors.primaryContainer}
-        icon={"pen"}
+        icon={entryScreenMode === "read" ? "pen-off" : "pen"}
         iconColor={theme.colors.onPrimaryContainer}
         onPress={handlePenIconPress}
       ></IconButton>
