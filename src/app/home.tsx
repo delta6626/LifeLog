@@ -88,6 +88,18 @@ export default function HomeScreen() {
       color: theme.colors.onPrimaryContainer,
     },
 
+    emptyStateContainer: {
+      flex: 1,
+      minHeight: 300,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
+    emptyStateText: {
+      textAlign: "center",
+      color: theme.colors.onSurfaceVariant,
+    },
+
     groupTitle: {
       marginTop: theme.spacing.md,
       marginBottom: theme.spacing.sm,
@@ -131,6 +143,14 @@ export default function HomeScreen() {
             <Text variant={"titleLarge"} style={styles.mainTitle}>
               Your memories
             </Text>
+
+            {groupedEntries.length === 0 && (
+              <View style={styles.emptyStateContainer}>
+                <Text variant="bodyMedium" style={styles.emptyStateText}>
+                  {"Could not find any memories. \nIt's time to make one."}
+                </Text>
+              </View>
+            )}
 
             {groupedEntries.map((group) => (
               <View key={group.title} style={styles.groupEntriesContainer}>
