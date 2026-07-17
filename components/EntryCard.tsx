@@ -89,10 +89,12 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
           style={styles.titleText}
           numberOfLines={2}
         >
-          {entryMetaData.title}
+          {!entryMetaData.title ? "Untitled memory" : entryMetaData.title}
         </Text>
         <Text variant={"bodyMedium"} style={styles.bodyText} numberOfLines={3}>
-          {entryMetaData.preview}
+          {!entryMetaData.preview
+            ? "This memory is empty."
+            : entryMetaData.preview}
         </Text>
 
         <View style={styles.bottomContainer}>
