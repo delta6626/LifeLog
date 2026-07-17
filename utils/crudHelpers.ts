@@ -115,3 +115,19 @@ export const deleteEntry = async (entryId: Entry["id"]): Promise<void> => {
 
   await metaDataFile.write(stringifiedMetaData);
 };
+
+export const flipEntryFavoriteProperty = async (
+  entryId: Entry["id"],
+): Promise<void> => {
+  const entry = await getEntryFile(entryId);
+
+  const updatedEntry: Entry = {
+    ...entry,
+    isFavorite: !entry.isFavorite,
+  };
+
+  await Promise.all([
+    updateEntryFile(updatedEntry),
+    updateMetaDataFile(updatedEntry),
+  ]);
+};
