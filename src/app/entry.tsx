@@ -49,6 +49,7 @@ export default function EntryScreen() {
             .replace(/\n{2,}/g, "\n")
             .trim()
             .slice(0, 100),
+          wordCount: plainTextContent.match(/\S+/g)?.length ?? 0,
           updatedAt: Date.now(),
         };
 
