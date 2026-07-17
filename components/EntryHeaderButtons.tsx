@@ -16,14 +16,17 @@ export const EntryHeaderButtons = () => {
         iconColor={theme.colors.onPrimaryContainer}
       ></IconButton>
 
-      <IconButton
+      {/* Favorite action is intentionally removed from the header for the time being. 
+      Users can favorite entries from the entry card instead. */}
+
+      {/* <IconButton
         style={{ margin: 0 }}
         mode={"contained-tonal"}
         size={20}
         containerColor={theme.colors.primaryContainer}
         icon={"heart-outline"}
         iconColor={theme.colors.onPrimaryContainer}
-      ></IconButton>
+      ></IconButton> */}
     </View>
   );
 };
