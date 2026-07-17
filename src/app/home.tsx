@@ -17,6 +17,7 @@ import {
   addNewEntryMetaData,
   createNewEntryFile,
 } from "../../utils/crudHelpers";
+import { getGreetingText } from "../../utils/getGreetingText";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function HomeScreen() {
@@ -90,7 +91,7 @@ export default function HomeScreen() {
         <HomeTopBar />
 
         <Text variant={"titleMedium"} style={styles.greetingText}>
-          Good afternoon
+          {getGreetingText()}
         </Text>
 
         <InsightsCard />
