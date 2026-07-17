@@ -4,7 +4,9 @@ import { IconButton, Text, TouchableRipple } from "react-native-paper";
 import { useCurrentEntryStore } from "../store/currentEntryStore";
 import { useDeleteEntryModalStore } from "../store/deleteEntryModalStore";
 import { useEntryScreenModeStore } from "../store/entryScreenModeStore";
+import { useMetaDataStore } from "../store/metaDataStore";
 import { EntryMetaData } from "../types/EntryMetaData";
+import { toggleEntryFavoriteStatus } from "../utils/crudHelpers";
 import { useAppTheme } from "../utils/useAppTheme";
 
 interface EntryCardProps {
@@ -18,6 +20,8 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
   const { setEntryScreenMode } = useEntryScreenModeStore();
   const { setIdForDeletion, setIsVisible } = useDeleteEntryModalStore();
 
+  const { refreshMetaData } = useMetaDataStore();
+
   const handleEntryCardPress = () => {
     setCurrentEntryId(entryMetaData.id);
     setEntryScreenMode("read");
@@ -28,6 +32,11 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
     // Stores the entry ID to be deleted and opens the Delete Entry modal
     setIdForDeletion(entryMetaData.id);
     setIsVisible(true);
+  };
+
+  const handleFavoriteButtonPress = async () => {
+    await toggleEntryFavoriteStatus(entryMetaData.id);
+    await refreshMetaData();
   };
 
   const styles = StyleSheet.create({
@@ -99,8 +108,9 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
               style={{ margin: 0 }}
               mode={"outlined"}
               size={16}
-              icon={"heart-outline"}
+              icon={entryMetaData.isFavorite ? "heart" : "heart-outline"}
               iconColor={theme.colors.muted}
+              onPress={handleFavoriteButtonPress}
             />
           </View>
         </View>
