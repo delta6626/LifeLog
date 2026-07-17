@@ -1,9 +1,12 @@
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
+import { useMetaDataStore } from "../store/metaDataStore";
 import { useAppTheme } from "../utils/useAppTheme";
 
 export const InsightsCard = () => {
   const theme = useAppTheme();
+
+  const { metaDataList } = useMetaDataStore();
 
   const styles = StyleSheet.create({
     parentContainer: {
@@ -41,7 +44,7 @@ export const InsightsCard = () => {
     <View style={styles.parentContainer}>
       <View style={styles.insightBox}>
         <Text variant={"titleMedium"} style={styles.insightBoxText}>
-          6
+          {metaDataList.length}
         </Text>
         <Text variant={"labelSmall"} style={styles.insightBoxSubtext}>
           Total
