@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { IconButton, Text } from "react-native-paper";
+import { useMetaDataStore } from "../store/metaDataStore";
 import { ScreenHeaderTitle } from "../types/ScreenHeaderName";
 import { useAppTheme } from "../utils/useAppTheme";
 import { EntryHeaderButtons } from "./EntryHeaderButtons";
@@ -11,6 +12,7 @@ interface ScreenHeaderProps {
 
 export const ScreenHeader = ({ screenHeaderTitle }: ScreenHeaderProps) => {
   const theme = useAppTheme();
+  const { refreshMetaData } = useMetaDataStore();
 
   const styles = StyleSheet.create({
     parentContainer: {
@@ -32,6 +34,7 @@ export const ScreenHeader = ({ screenHeaderTitle }: ScreenHeaderProps) => {
   });
 
   const handleBackButtonPress = () => {
+    refreshMetaData();
     router.back();
   };
 
