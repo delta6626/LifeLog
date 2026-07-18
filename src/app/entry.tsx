@@ -83,7 +83,6 @@ export default function EntryScreen() {
   );
 
   const editor = useEditorBridge({
-    autofocus: entryScreenMode !== "read",
     editable: entryScreenMode !== "read",
     avoidIosKeyboard: true,
 
@@ -202,6 +201,7 @@ export default function EntryScreen() {
         placeholder="Title"
         style={styles.titleInput}
         editable={entryScreenMode != "read"}
+        autoFocus={entryScreenMode != "read"}
       />
 
       <RichText
