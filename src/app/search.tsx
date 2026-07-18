@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { DatePickerModal } from "react-native-paper-dates";
+import type { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
 import { useAppTheme } from "../../utils/useAppTheme";
@@ -9,7 +10,8 @@ import { useAppTheme } from "../../utils/useAppTheme";
 export default function SearchScreen() {
   const theme = useAppTheme();
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [date, setDate] = useState<CalendarDate | undefined>();
 
   const styles = StyleSheet.create({
     parentContainer: {
@@ -59,13 +61,19 @@ export default function SearchScreen() {
               label={"Select a date"}
               saveLabel={"Show memories"}
               saveLabelDisabled={false}
+              validRange={{ endDate: new Date() }}
               mode="single"
               visible={modalOpen}
               onDismiss={() => {
                 setModalOpen(false);
+                setDate(undefined);
               }}
-              date={undefined}
+              date={date}
               onConfirm={() => {}}
+              onChange={(dateObject) => {
+                setDate(dateObject.date);
+                console.log(dateObject.date);
+              }}
             />
           </View>
         </View>
