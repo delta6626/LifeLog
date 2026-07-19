@@ -163,6 +163,7 @@ export default function EntryScreen() {
 
     editor: {
       flex: 1,
+      marginTop: -theme.spacing.lg,
       backgroundColor: "transparent",
     },
 
@@ -175,8 +176,9 @@ export default function EntryScreen() {
 
     titleInput: {
       backgroundColor: "transparent",
-      margin: 0,
+      marginTop: theme.spacing.lg,
       paddingHorizontal: 0,
+      fontSize: theme.fonts.headlineSmall.fontSize,
     },
   });
 
@@ -202,6 +204,8 @@ export default function EntryScreen() {
         style={styles.titleInput}
         editable={entryScreenMode != "read"}
         autoFocus={entryScreenMode != "read"}
+        underlineStyle={{ display: "none" }}
+        textColor={theme.colors.primary}
       />
 
       <RichText
