@@ -2,11 +2,16 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
 import { useMetaDataStore } from "../../store/metaDataStore";
+import { getFavoriteEntries } from "../../utils/getFavoriteEntries";
+import { groupEntriesByMonth } from "../../utils/groupEntriesByMonth";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function FavoritesScreen() {
   const theme = useAppTheme();
   const { metaDataList } = useMetaDataStore();
+
+  const favoriteEntries = getFavoriteEntries(metaDataList);
+  const favoritesGrouped = groupEntriesByMonth(favoriteEntries);
 
   const styles = StyleSheet.create({
     parentContainer: {
