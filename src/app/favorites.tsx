@@ -23,7 +23,7 @@ export default function FavoritesScreen() {
 
     childContainer: {
       flex: 1,
-      minHeight: "100%",
+      minHeight: "90%",
       paddingVertical: theme.spacing.xl,
       paddingHorizontal: theme.spacing.xl,
     },
