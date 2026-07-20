@@ -1,157 +1,19 @@
-import {
-  EditorBridge,
-  RichText,
-  Toolbar,
-  useEditorBridge,
-} from "@10play/tentap-editor";
-import { debounce } from "lodash";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { KeyboardAvoidingView, StyleSheet } from "react-native";
+import { useRef, useState } from "react";
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import { TextInput } from "react-native-paper";
+import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
-import { useCurrentEntryStore } from "../../store/currentEntryStore";
 import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
-import { Entry } from "../../types/Entry";
-import {
-  getEntryFile,
-  updateEntryFile,
-  updateMetaDataFile,
-} from "../../utils/crudHelpers";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function EntryScreen() {
-  const editorRef = useRef<EditorBridge | null>(null);
-
   const theme = useAppTheme();
-  const { currentEntryId } = useCurrentEntryStore();
   const { entryScreenMode } = useEntryScreenModeStore();
 
-  const [title, setTitle] = useState<string>();
-  const [entry, setEntry] = useState<Entry | null>(null);
-  const entryRef = useRef<Entry | null>(null);
+  const [title, setTitle] = useState<string>("");
 
-  const debouncedSaveEditorContent = useMemo(
-    () =>
-      debounce(async () => {
-        if (!editorRef.current) return;
-
-        const currentEntry = entryRef.current;
-        if (!currentEntry) return;
-
-        const editorContent = await editorRef.current.getHTML();
-        const plainTextContent = await editorRef.current.getText();
-
-        const updatedEntry: Entry = {
-          ...currentEntry,
-          content: editorContent,
-          preview: plainTextContent
-            .replace(/\n{2,}/g, "\n")
-            .trim()
-            .slice(0, 100),
-          wordCount: plainTextContent.match(/\S+/g)?.length ?? 0,
-          updatedAt: Date.now(),
-        };
-
-        entryRef.current = updatedEntry;
-        setEntry(updatedEntry);
-
-        await updateEntryFile(updatedEntry);
-        await updateMetaDataFile(updatedEntry);
-      }, 300),
-    [],
-  );
-
-  const debouncedSaveTitle = useMemo(
-    () =>
-      debounce(async (title: string) => {
-        if (!entryRef.current) return;
-
-        const updatedEntry = {
-          ...entryRef.current,
-          title,
-          updatedAt: Date.now(),
-        };
-
-        entryRef.current = updatedEntry;
-        setEntry(updatedEntry);
-
-        await updateEntryFile(updatedEntry);
-        await updateMetaDataFile(updatedEntry);
-      }, 300),
-    [],
-  );
-
-  const editor = useEditorBridge({
-    editable: entryScreenMode !== "read",
-    avoidIosKeyboard: true,
-
-    theme: {
-      toolbar: {
-        toolbarBody: {
-          borderRadius: theme.radii.x3l,
-          backgroundColor: theme.colors.primaryContainer,
-          borderTopWidth: 0,
-          borderBottomWidth: 0,
-          borderLeftWidth: 0,
-          borderRightWidth: 0,
-        },
-
-        toolbarButton: {
-          backgroundColor: theme.colors.primaryContainer,
-        },
-
-        iconWrapper: {
-          backgroundColor: theme.colors.primaryContainer,
-          borderRadius: theme.radii.x3l,
-        },
-
-        iconActive: {
-          backgroundColor: theme.colors.background,
-          borderRadius: theme.radii.x3l,
-        },
-      },
-    },
-
-    onChange: () => {
-      debouncedSaveEditorContent();
-    },
-  });
-
-  const handleTitleChange = (text: string) => {
-    setTitle(text);
-    debouncedSaveTitle(text);
-  };
-
-  useEffect(() => {
-    editorRef.current = editor;
-  }, [editor]);
-
-  useEffect(() => {
-    const loadEntry = async () => {
-      if (!currentEntryId) return;
-
-      const loadedEntry = await getEntryFile(currentEntryId);
-
-      setTitle(loadedEntry.title);
-      setEntry(loadedEntry);
-      entryRef.current = loadedEntry;
-
-      while (!editor.getEditorState().isReady) {
-        await new Promise((resolve) => setTimeout(resolve, 100));
-      }
-
-      editor.setContent(loadedEntry.content);
-    };
-
-    loadEntry();
-  }, [currentEntryId]);
-
-  useEffect(() => {
-    return () => {
-      debouncedSaveEditorContent.cancel();
-    };
-  }, [debouncedSaveEditorContent]);
+  const editorRef = useRef<RichEditor>(null);
 
   const styles = StyleSheet.create({
     parentContainer: {
@@ -163,15 +25,16 @@ export default function EntryScreen() {
 
     editor: {
       flex: 1,
-      marginTop: -theme.spacing.lg,
       backgroundColor: "transparent",
     },
 
+    editorContainer: {
+      flex: 1,
+      marginTop: theme.spacing.lg,
+    },
+
     toolbarContainer: {
-      position: "absolute",
-      left: theme.spacing.xl,
-      right: theme.spacing.xl,
-      bottom: theme.spacing.xl,
+      paddingTop: theme.spacing.md,
     },
 
     titleInput: {
@@ -196,26 +59,28 @@ export default function EntryScreen() {
 
       <TextInput
         value={title}
-        onChangeText={handleTitleChange}
+        onChangeText={setTitle}
         maxLength={250}
-        multiline={true}
-        mode={"flat"}
+        multiline
+        mode="flat"
         placeholder="Title"
         style={styles.titleInput}
-        editable={entryScreenMode != "read"}
-        autoFocus={entryScreenMode != "read"}
+        editable={entryScreenMode !== "read"}
+        autoFocus={entryScreenMode !== "read"}
         underlineStyle={{ display: "none" }}
         textColor={theme.colors.primary}
       />
 
-      <RichText
-        editor={editor}
-        style={styles.editor}
-        showsVerticalScrollIndicator={false}
-      />
+      <View style={styles.editorContainer}>
+        <RichEditor
+          ref={editorRef}
+          style={styles.editor}
+          disabled={entryScreenMode === "read"}
+        />
+      </View>
 
       <KeyboardAvoidingView behavior="padding" style={styles.toolbarContainer}>
-        <Toolbar editor={editor} hidden={entryScreenMode === "read"} />
+        <RichToolbar editor={editorRef} />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
