@@ -61,7 +61,7 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      marginTop: theme.spacing.xs,
+      marginTop: theme.spacing.sm,
     },
 
     dateText: {
