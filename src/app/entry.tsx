@@ -38,14 +38,8 @@ export default function EntryScreen() {
       paddingHorizontal: theme.spacing.xl,
     },
 
-    editor: {
-      flex: 1,
-      backgroundColor: "transparent",
-    },
-
     editorContainer: {
       flex: 1,
-      marginTop: theme.spacing.lg,
     },
 
     toolbarContainer: {
@@ -89,8 +83,30 @@ export default function EntryScreen() {
       <View style={styles.editorContainer}>
         <RichEditor
           ref={editorRef}
-          style={styles.editor}
-          disabled={entryScreenMode === "read"}
+          editorStyle={{
+            backgroundColor: "transparent",
+            initialCSSText: `
+            body {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+
+            #content {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+
+            div {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+
+            p {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+          `,
+          }}
           useContainer={false}
         />
       </View>
