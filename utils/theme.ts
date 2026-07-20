@@ -18,7 +18,7 @@ export const theme = {
     outline: "#DAD9C8",
     muted: "#919b88",
     error: "#D32F2F",
-    errorContainer: "#FDECEA",
+    errorContainer: "#fadcd9",
   },
 
   spacing: {
