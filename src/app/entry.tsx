@@ -25,6 +25,11 @@ export default function EntryScreen() {
   const editorRef = useRef<RichEditor | null>(null);
   const loadedEntry = useRef<Entry | null>(null);
 
+  const handleTitleSubmit = () => {
+    if (!editorRef.current) return;
+    editorRef.current.focusContentEditor();
+  };
+
   const debouncedTitleSave = useMemo(
     () =>
       debounce(async (title: string) => {
@@ -143,10 +148,7 @@ export default function EntryScreen() {
           value={title}
           onChangeText={setTitle}
           submitBehavior={"submit"}
-          onSubmitEditing={() => {
-            if (!editorRef.current) return;
-            editorRef.current.focusContentEditor();
-          }}
+          onSubmitEditing={handleTitleSubmit}
           maxLength={250}
           multiline
           mode="flat"
