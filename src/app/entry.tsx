@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { debounce } from "lodash";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import { TextInput } from "react-native-paper";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
@@ -6,7 +7,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
 import { useCurrentEntryStore } from "../../store/currentEntryStore";
 import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
-import { getEntryFile } from "../../utils/crudHelpers";
+import { Entry } from "../../types/Entry";
+import {
+  getEntryFile,
+  updateEntryFile,
+  updateMetaDataFile,
+} from "../../utils/crudHelpers";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function EntryScreen() {
@@ -16,7 +22,39 @@ export default function EntryScreen() {
 
   const [title, setTitle] = useState<string>("");
 
-  const editorRef = useRef<RichEditor>(null);
+  const editorRef = useRef<RichEditor | null>(null);
+  const loadedEntry = useRef<Entry | null>(null);
+
+  const debouncedEditorContentSave = useMemo(
+    () =>
+      debounce(async (content: string) => {
+        if (!editorRef.current || !currentEntryId || !loadedEntry.current)
+          return;
+
+        const plainTextContent = content
+          .replace(/<[^>]*>/g, "")
+          .replace(/&nbsp;/g, " ");
+
+        const wordCount = plainTextContent.match(/\S+/g)?.length ?? 0;
+
+        const updatedEntry: Entry = {
+          id: currentEntryId,
+          title: loadedEntry.current.title,
+          content: content,
+          preview: plainTextContent.slice(0, 100).trim(),
+          wordCount: wordCount,
+          isFavorite: loadedEntry.current.isFavorite,
+          updatedAt: Date.now(),
+          createdAt: loadedEntry.current.createdAt,
+        };
+
+        loadedEntry.current = updatedEntry;
+
+        await updateEntryFile(updatedEntry);
+        await updateMetaDataFile(updatedEntry);
+      }, 300),
+    [currentEntryId],
+  );
 
   useEffect(() => {
     const initializeEntry = async () => {
@@ -25,10 +63,17 @@ export default function EntryScreen() {
 
       setTitle(entryDetails.title);
       editorRef.current.setContentHTML(entryDetails.content);
+      loadedEntry.current = entryDetails;
     };
 
     initializeEntry();
   }, [currentEntryId, editorRef]);
+
+  useEffect(() => {
+    return () => {
+      debouncedEditorContentSave.cancel();
+    };
+  }, [debouncedEditorContentSave]);
 
   const styles = StyleSheet.create({
     parentContainer: {
@@ -88,6 +133,9 @@ export default function EntryScreen() {
         <View style={styles.editorContainer}>
           <RichEditor
             ref={editorRef}
+            useContainer={false}
+            placeholder={"Write something"}
+            onChange={debouncedEditorContentSave}
             editorStyle={{
               backgroundColor: "transparent",
               initialCSSText: `
@@ -112,8 +160,6 @@ export default function EntryScreen() {
             }
           `,
             }}
-            useContainer={false}
-            placeholder={"Write something"}
           />
         </View>
       </View>
