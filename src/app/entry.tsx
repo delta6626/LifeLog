@@ -34,6 +34,10 @@ export default function EntryScreen() {
     parentContainer: {
       flex: 1,
       backgroundColor: theme.colors.background,
+    },
+
+    childContainer: {
+      flex: 1,
       paddingVertical: theme.spacing.xl,
       paddingHorizontal: theme.spacing.xl,
     },
@@ -56,36 +60,37 @@ export default function EntryScreen() {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <ScreenHeader
-        screenHeaderTitle={
-          entryScreenMode === "create"
-            ? "New memory"
-            : entryScreenMode === "edit"
-              ? "Edit memory"
-              : "View memory"
-        }
-      />
+      <View style={styles.childContainer}>
+        <ScreenHeader
+          screenHeaderTitle={
+            entryScreenMode === "create"
+              ? "New memory"
+              : entryScreenMode === "edit"
+                ? "Edit memory"
+                : "View memory"
+          }
+        />
 
-      <TextInput
-        value={title}
-        onChangeText={setTitle}
-        maxLength={250}
-        multiline
-        mode="flat"
-        placeholder="Title"
-        style={styles.titleInput}
-        editable={entryScreenMode !== "read"}
-        autoFocus={entryScreenMode !== "read"}
-        underlineStyle={{ display: "none" }}
-        textColor={theme.colors.primary}
-      />
+        <TextInput
+          value={title}
+          onChangeText={setTitle}
+          maxLength={250}
+          multiline
+          mode="flat"
+          placeholder="Title"
+          style={styles.titleInput}
+          editable={entryScreenMode !== "read"}
+          autoFocus={entryScreenMode !== "read"}
+          underlineStyle={{ display: "none" }}
+          textColor={theme.colors.primary}
+        />
 
-      <View style={styles.editorContainer}>
-        <RichEditor
-          ref={editorRef}
-          editorStyle={{
-            backgroundColor: "transparent",
-            initialCSSText: `
+        <View style={styles.editorContainer}>
+          <RichEditor
+            ref={editorRef}
+            editorStyle={{
+              backgroundColor: "transparent",
+              initialCSSText: `
             body {
               margin: 0 !important;
               padding: 0 !important;
@@ -106,9 +111,11 @@ export default function EntryScreen() {
               padding: 0 !important;
             }
           `,
-          }}
-          useContainer={false}
-        />
+            }}
+            useContainer={false}
+            placeholder={"Write something"}
+          />
+        </View>
       </View>
 
       <KeyboardAvoidingView behavior="padding" style={styles.toolbarContainer}>
