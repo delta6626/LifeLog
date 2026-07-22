@@ -142,6 +142,11 @@ export default function EntryScreen() {
         <TextInput
           value={title}
           onChangeText={setTitle}
+          submitBehavior={"submit"}
+          onSubmitEditing={() => {
+            if (!editorRef.current) return;
+            editorRef.current.focusContentEditor();
+          }}
           maxLength={250}
           multiline
           mode="flat"
