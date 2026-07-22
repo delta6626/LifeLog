@@ -56,18 +56,14 @@ export default function EntryScreen() {
     [currentEntryId],
   );
 
-  useEffect(() => {
-    const initializeEntry = async () => {
-      if (!currentEntryId || !editorRef.current) return;
-      const entryDetails = await getEntryFile(currentEntryId);
+  const initializeEntry = async () => {
+    if (!currentEntryId || !editorRef.current) return;
+    const entryDetails = await getEntryFile(currentEntryId);
 
-      setTitle(entryDetails.title);
-      editorRef.current.setContentHTML(entryDetails.content);
-      loadedEntry.current = entryDetails;
-    };
-
-    initializeEntry();
-  }, [currentEntryId, editorRef]);
+    setTitle(entryDetails.title);
+    editorRef.current.setContentHTML(entryDetails.content);
+    loadedEntry.current = entryDetails;
+  };
 
   useEffect(() => {
     return () => {
@@ -136,6 +132,7 @@ export default function EntryScreen() {
             disabled={entryScreenMode === "read"}
             useContainer={false}
             placeholder={"Write something"}
+            editorInitializedCallback={initializeEntry}
             onChange={debouncedEditorContentSave}
             editorStyle={{
               backgroundColor: "transparent",
@@ -154,7 +151,7 @@ export default function EntryScreen() {
                 margin: 0 !important;
                 padding: 0 !important;
               }
-                
+
               p {
                 margin: 0 !important;
                 padding: 0 !important;
