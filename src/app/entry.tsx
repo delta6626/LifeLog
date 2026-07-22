@@ -133,31 +133,32 @@ export default function EntryScreen() {
         <View style={styles.editorContainer}>
           <RichEditor
             ref={editorRef}
+            disabled={entryScreenMode === "read"}
             useContainer={false}
             placeholder={"Write something"}
             onChange={debouncedEditorContentSave}
             editorStyle={{
               backgroundColor: "transparent",
               initialCSSText: `
-            body {
-              margin: 0 !important;
-              padding: 0 !important;
-            }
+              body{
+                margin: 0 !important;
+                padding: 0 !important;
+              }
 
-            #content {
-              margin: 0 !important;
-              padding: 0 !important;
-            }
-
-            div {
-              margin: 0 !important;
-              padding: 0 !important;
-            }
-
-            p {
-              margin: 0 !important;
-              padding: 0 !important;
-            }
+              #content{
+                margin: 0 !important;
+                padding: 0 !important;
+              }
+    
+              div{
+                margin: 0 !important;
+                padding: 0 !important;
+              }
+                
+              p {
+                margin: 0 !important;
+                padding: 0 !important;
+              }
           `,
             }}
           />
