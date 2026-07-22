@@ -1,7 +1,7 @@
 import { debounce } from "lodash";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
-import { TextInput } from "react-native-paper";
+import { Icon, TextInput } from "react-native-paper";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "../../components/ScreenHeader";
@@ -121,6 +121,8 @@ export default function EntryScreen() {
 
     toolbarContainer: {
       paddingTop: theme.spacing.md,
+      paddingHorizontal: theme.spacing.x2l,
+      marginBottom: theme.spacing.md,
     },
 
     titleInput: {
@@ -196,8 +198,91 @@ export default function EntryScreen() {
         </View>
       </View>
 
-      <KeyboardAvoidingView behavior="padding" style={styles.toolbarContainer}>
-        <RichToolbar editor={editorRef} />
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={[
+          styles.toolbarContainer,
+          { display: entryScreenMode === "read" ? "none" : "flex" },
+        ]}
+      >
+        <RichToolbar
+          editor={editorRef}
+          actions={[
+            "bold",
+            "italic",
+            "underline",
+            "alignLeft",
+            "alignCenter",
+            "unorderedList",
+            "insertImage",
+          ]}
+          style={{
+            backgroundColor: theme.colors.primaryContainer,
+            borderRadius: theme.radii.full,
+            height: 44,
+            paddingVertical: 6,
+            alignItems: "center",
+          }}
+          selectedButtonStyle={{
+            backgroundColor: theme.colors.surface,
+            borderRadius: theme.radii.full,
+          }}
+          flatContainerStyle={{ backgroundColor: "transparent" }}
+          iconSize={18}
+          iconTint={theme.colors.onSurfaceVariant}
+          selectedIconTint={theme.colors.primary}
+          iconMap={{
+            bold: () => (
+              <Icon
+                source="format-bold"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+            italic: () => (
+              <Icon
+                source="format-italic"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+            underline: () => (
+              <Icon
+                source="format-underline"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+            alignLeft: () => (
+              <Icon
+                source="format-align-left"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+            alignCenter: () => (
+              <Icon
+                source="format-align-center"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+            unorderedList: () => (
+              <Icon
+                source="format-list-bulleted"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+            insertImage: () => (
+              <Icon
+                source="image-outline"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+          }}
+        />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
