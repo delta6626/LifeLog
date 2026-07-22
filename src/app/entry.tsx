@@ -25,6 +25,25 @@ export default function EntryScreen() {
   const editorRef = useRef<RichEditor | null>(null);
   const loadedEntry = useRef<Entry | null>(null);
 
+  const debouncedTitleSave = useMemo(
+    () =>
+      debounce(async (title: string) => {
+        if (!currentEntryId || !loadedEntry.current) return;
+
+        const updatedEntry: Entry = {
+          ...loadedEntry.current,
+          title,
+          updatedAt: Date.now(),
+        };
+
+        loadedEntry.current = updatedEntry;
+
+        await updateEntryFile(updatedEntry);
+        await updateMetaDataFile(updatedEntry);
+      }, 300),
+    [currentEntryId],
+  );
+
   const debouncedEditorContentSave = useMemo(
     () =>
       debounce(async (content: string) => {
@@ -64,6 +83,14 @@ export default function EntryScreen() {
     editorRef.current.setContentHTML(entryDetails.content);
     loadedEntry.current = entryDetails;
   };
+
+  useEffect(() => {
+    debouncedTitleSave(title);
+
+    return () => {
+      debouncedTitleSave.cancel();
+    };
+  }, [title, debouncedTitleSave]);
 
   useEffect(() => {
     return () => {
