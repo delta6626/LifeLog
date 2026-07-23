@@ -52,17 +52,16 @@ export const InsertLinkModal = ({ editorRef }: InsertLinkModalProps) => {
     },
 
     textInput: {
-      marginBottom: theme.spacing.md,
       backgroundColor: "transparent",
     },
 
-    cancelButton: {
+    insertButton: {
+      marginTop: theme.spacing.lg,
       width: "100%",
-      marginTop: theme.spacing.md,
-      marginBottom: theme.spacing.sm,
     },
 
-    insertButton: {
+    cancelButton: {
+      marginTop: theme.spacing.sm,
       width: "100%",
     },
   });
@@ -113,7 +112,7 @@ export const InsertLinkModal = ({ editorRef }: InsertLinkModalProps) => {
         </Button>
 
         <Button
-          mode="contained"
+          mode={"outlined"}
           style={styles.cancelButton}
           onPress={handleDismiss}
         >
