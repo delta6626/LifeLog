@@ -15,6 +15,8 @@ import {
 } from "../../utils/crudHelpers";
 import { useAppTheme } from "../../utils/useAppTheme";
 
+const DEBOUNCE_DURATION = 300; // in ms
+
 export default function EntryScreen() {
   const theme = useAppTheme();
   const { entryScreenMode } = useEntryScreenModeStore();
@@ -45,7 +47,7 @@ export default function EntryScreen() {
 
         await updateEntryFile(updatedEntry);
         await updateMetaDataFile(updatedEntry);
-      }, 300),
+      }, DEBOUNCE_DURATION),
     [currentEntryId],
   );
 
@@ -76,7 +78,7 @@ export default function EntryScreen() {
 
         await updateEntryFile(updatedEntry);
         await updateMetaDataFile(updatedEntry);
-      }, 300),
+      }, DEBOUNCE_DURATION),
     [currentEntryId],
   );
 
