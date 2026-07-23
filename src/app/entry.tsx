@@ -213,8 +213,9 @@ export default function EntryScreen() {
             "bold",
             "italic",
             "underline",
-            "alignLeft",
-            "alignCenter",
+            "justifyLeft",
+            "justifyCenter",
+            "justifyRight",
             "unorderedList",
             "insertImage",
           ]}
@@ -273,16 +274,23 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
-            alignLeft: () => (
+            justifyLeft: () => (
               <Icon
                 source="format-align-left"
                 size={18}
                 color={theme.colors.onSurfaceVariant}
               />
             ),
-            alignCenter: () => (
+            justifyCenter: () => (
               <Icon
                 source="format-align-center"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+            justifyRight: () => (
+              <Icon
+                source="format-align-right"
                 size={18}
                 color={theme.colors.onSurfaceVariant}
               />
