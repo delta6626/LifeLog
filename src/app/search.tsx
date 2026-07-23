@@ -98,7 +98,7 @@ export default function SearchScreen() {
               onChangeText={setSearchTitle}
               mode="outlined"
               autoFocus
-              placeholder="Search by title"
+              label="Search by title"
               outlineStyle={{
                 borderRadius: theme.radii.full,
               }}
