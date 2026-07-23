@@ -4,9 +4,11 @@ import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import { Icon, TextInput } from "react-native-paper";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { InsertLinkModal } from "../../components/InsertLinkModal";
 import { ScreenHeader } from "../../components/ScreenHeader";
 import { useCurrentEntryStore } from "../../store/currentEntryStore";
 import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
+import { useInsertLinkModalStore } from "../../store/insertLinkModalStore";
 import { Entry } from "../../types/Entry";
 import {
   getEntryFile,
@@ -21,6 +23,7 @@ export default function EntryScreen() {
   const theme = useAppTheme();
   const { entryScreenMode } = useEntryScreenModeStore();
   const { currentEntryId } = useCurrentEntryStore();
+  const { setIsVisible: setInsertLinkModalVisible } = useInsertLinkModalStore();
 
   const [title, setTitle] = useState<string>("");
 
@@ -137,6 +140,8 @@ export default function EntryScreen() {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
+      <InsertLinkModal editorRef={editorRef} />
+
       <View style={styles.childContainer}>
         <ScreenHeader
           screenHeaderTitle={
@@ -219,8 +224,11 @@ export default function EntryScreen() {
             "justifyCenter",
             "justifyRight",
             "unorderedList",
-            "insertLink",
+            "appendLink", // Custom action
           ]}
+          appendLink={() => {
+            setInsertLinkModalVisible(true);
+          }}
           style={{
             backgroundColor: theme.colors.primaryContainer,
             borderRadius: theme.radii.full,
@@ -304,7 +312,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
-            insertLink: () => (
+            appendLink: () => (
               <Icon
                 source="link"
                 size={18}
