@@ -208,6 +208,8 @@ export default function EntryScreen() {
         <RichToolbar
           editor={editorRef}
           actions={[
+            "heading3",
+            "paragraph",
             "bold",
             "italic",
             "underline",
@@ -226,12 +228,30 @@ export default function EntryScreen() {
           selectedButtonStyle={{
             backgroundColor: theme.colors.surface,
             borderRadius: theme.radii.full,
+            marginHorizontal: theme.spacing.xs,
+          }}
+          unselectedButtonStyle={{
+            marginHorizontal: theme.spacing.xs,
           }}
           flatContainerStyle={{ backgroundColor: "transparent" }}
           iconSize={18}
           iconTint={theme.colors.onSurfaceVariant}
           selectedIconTint={theme.colors.primary}
           iconMap={{
+            heading3: () => (
+              <Icon
+                source="alpha-h"
+                size={28}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+            paragraph: () => (
+              <Icon
+                source="format-paragraph"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
             bold: () => (
               <Icon
                 source="format-bold"
