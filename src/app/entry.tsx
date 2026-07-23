@@ -217,7 +217,7 @@ export default function EntryScreen() {
             "justifyCenter",
             "justifyRight",
             "unorderedList",
-            "insertImage",
+            "insertLink",
           ]}
           style={{
             backgroundColor: theme.colors.primaryContainer,
@@ -302,9 +302,9 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
-            insertImage: () => (
+            insertLink: () => (
               <Icon
-                source="image-outline"
+                source="link"
                 size={18}
                 color={theme.colors.onSurfaceVariant}
               />
