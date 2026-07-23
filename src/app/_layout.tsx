@@ -1,5 +1,6 @@
 // LifeLog - A cross-platform React Native app for day-to-day personal journaling.
 // Copyright (c) 2026 Mahamudul Hasan
+// Licensed under the MIT License.
 
 import { Stack } from "expo-router";
 import { PaperProvider } from "react-native-paper";
