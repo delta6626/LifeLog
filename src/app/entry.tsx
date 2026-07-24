@@ -222,6 +222,7 @@ export default function EntryScreen() {
             "justifyLeft",
             "justifyCenter",
             "justifyRight",
+            "orderedList",
             "unorderedList",
             "appendLink", // Custom action
           ]}
@@ -300,6 +301,13 @@ export default function EntryScreen() {
             justifyRight: () => (
               <Icon
                 source="format-align-right"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+            orderedList: () => (
+              <Icon
+                source="format-list-numbered"
                 size={18}
                 color={theme.colors.onSurfaceVariant}
               />
