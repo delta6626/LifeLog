@@ -15,6 +15,9 @@ import {
   updateEntryFile,
   updateMetaDataFile,
 } from "../../utils/crudHelpers";
+import { getEntryPlainTextContent } from "../../utils/getEntryPlainTextContent";
+import { getEntryPreview } from "../../utils/getEntryPreview";
+import { getEntryWordCount } from "../../utils/getEntryWordCount";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 const DEBOUNCE_DURATION = 300; // in ms
@@ -60,18 +63,14 @@ export default function EntryScreen() {
         if (!editorRef.current || !currentEntryId || !loadedEntry.current)
           return;
 
-        const plainTextContent = content
-          .replace(/<[^>]*>/g, "")
-          .replace(/&nbsp;/g, " ");
-
-        const wordCount = plainTextContent.match(/\S+/g)?.length ?? 0;
+        const plainTextContent = getEntryPlainTextContent(content);
 
         const updatedEntry: Entry = {
           id: currentEntryId,
           title: loadedEntry.current.title,
           content: content,
-          preview: plainTextContent.slice(0, 100).trim(),
-          wordCount: wordCount,
+          preview: getEntryPreview(plainTextContent),
+          wordCount: getEntryWordCount(plainTextContent),
           isFavorite: loadedEntry.current.isFavorite,
           updatedAt: Date.now(),
           createdAt: loadedEntry.current.createdAt,
