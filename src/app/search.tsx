@@ -8,8 +8,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { EntryCard } from "../../components/EntryCard";
 import { ScreenHeader } from "../../components/ScreenHeader";
 import { useMetaDataStore } from "../../store/metaDataStore";
+import { filterEntries } from "../../utils/filterEntries";
 import { groupEntriesByMonth } from "../../utils/groupEntriesByMonth";
-import { isSameCalendarDay } from "../../utils/isSameCalendarDay";
 import { useAppTheme } from "../../utils/useAppTheme";
 
 export default function SearchScreen() {
@@ -30,18 +30,7 @@ export default function SearchScreen() {
       return;
     }
 
-    const filtered = metaDataList.filter((entry) => {
-      const titleMatches =
-        trimmedSearch === "" ||
-        entry.title.toLowerCase().includes(trimmedSearch);
-
-      const dateMatches =
-        !date || isSameCalendarDay(new Date(entry.createdAt), date);
-
-      return titleMatches && dateMatches;
-    });
-
-    setFilteredEntries(filtered);
+    setFilteredEntries(filterEntries(metaDataList, searchTitle, date));
   }, [searchTitle, date, metaDataList]);
 
   const groupedEntries = useMemo(
