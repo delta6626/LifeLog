@@ -3,7 +3,6 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "dependencies": {
-    "@10play/tentap-editor": "^1.0.1",
     "@expo/ui": "~57.0.4",
     "@expo/vector-icons": "^15.1.1",
     "@types/lodash.debounce": "^4.0.9",
@@ -24,7 +23,6 @@
     "expo-web-browser": "~57.0.0",
     "lodash.debounce": "^4.0.8",
     "react": "19.2.3",
-    "react-dom": "19.2.3",
     "react-native": "0.86.0",
     "react-native-gesture-handler": "~2.32.0",
     "react-native-paper": "^5.15.3",
@@ -33,7 +31,6 @@
     "react-native-reanimated": "4.5.0",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "4.25.2",
-    "react-native-web": "~0.21.0",
     "react-native-webview": "13.16.1",
     "react-native-worklets": "0.10.0",
     "zustand": "^5.0.14"
@@ -50,7 +47,6 @@
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
     "lint": "expo lint",
     "test": "jest"
   },
