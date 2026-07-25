@@ -215,16 +215,25 @@ export default function EntryScreen() {
         <RichToolbar
           editor={editorRef}
           actions={[
+            "undo",
+            "redo",
+
             "heading3",
             "paragraph",
+            "quote",
+            "horizontalRule",
+
             "bold",
             "italic",
             "underline",
+
             "justifyLeft",
             "justifyCenter",
             "justifyRight",
+
             "orderedList",
             "unorderedList",
+
             "appendLink", // Custom action
           ]}
           appendLink={() => {
@@ -250,6 +259,22 @@ export default function EntryScreen() {
           iconTint={theme.colors.onSurfaceVariant}
           selectedIconTint={theme.colors.primary}
           iconMap={{
+            undo: () => (
+              <Icon
+                source="undo"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+
+            redo: () => (
+              <Icon
+                source="redo"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+
             heading3: () => (
               <Icon
                 source="alpha-h"
@@ -257,6 +282,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
             paragraph: () => (
               <Icon
                 source="format-paragraph"
@@ -264,6 +290,23 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
+            quote: () => (
+              <Icon
+                source="format-quote-open"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+
+            horizontalRule: () => (
+              <Icon
+                source="minus"
+                size={18}
+                color={theme.colors.onSurfaceVariant}
+              />
+            ),
+
             bold: () => (
               <Icon
                 source="format-bold"
@@ -271,6 +314,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
             italic: () => (
               <Icon
                 source="format-italic"
@@ -278,6 +322,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
             underline: () => (
               <Icon
                 source="format-underline"
@@ -285,6 +330,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
             justifyLeft: () => (
               <Icon
                 source="format-align-left"
@@ -292,6 +338,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
             justifyCenter: () => (
               <Icon
                 source="format-align-center"
@@ -299,6 +346,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
             justifyRight: () => (
               <Icon
                 source="format-align-right"
@@ -306,6 +354,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
             orderedList: () => (
               <Icon
                 source="format-list-numbered"
@@ -313,6 +362,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
             unorderedList: () => (
               <Icon
                 source="format-list-bulleted"
@@ -320,6 +370,7 @@ export default function EntryScreen() {
                 color={theme.colors.onSurfaceVariant}
               />
             ),
+
             appendLink: () => (
               <Icon
                 source="link"
