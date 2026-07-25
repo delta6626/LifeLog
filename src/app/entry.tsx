@@ -1,4 +1,4 @@
-import { debounce } from "lodash";
+import debounce from "lodash.debounce";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import { Icon, TextInput } from "react-native-paper";
