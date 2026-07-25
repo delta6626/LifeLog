@@ -25,6 +25,7 @@ export default function SearchScreen() {
   useEffect(() => {
     const trimmedSearch = searchTitle.trim().toLowerCase();
 
+    // Keep search results empty if no active filters are provided, rather than listing all entries
     if (trimmedSearch === "" && !date) {
       setFilteredEntries([]);
       return;

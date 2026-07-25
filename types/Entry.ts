@@ -7,6 +7,6 @@ export interface Entry {
   wordCount: number;
   isFavorite: boolean;
 
-  createdAt: EpochTimeStamp;
-  updatedAt: EpochTimeStamp;
+  createdAt: EpochTimeStamp; // Milliseconds since UNIX epoch
+  updatedAt: EpochTimeStamp; // Milliseconds since UNIX epoch
 }

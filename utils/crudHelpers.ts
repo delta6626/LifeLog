@@ -2,11 +2,12 @@ import { Directory, File, Paths } from "expo-file-system";
 import { Entry } from "../types/Entry";
 import { EntryMetaData } from "../types/EntryMetaData";
 
+// Metadata is stored in a separate index file for quick list loading and search queries,
+// while the full rich-text content for each entry is saved in its own file under the entries directory.
 const META_DATA_FILE_NAME = "metadata.json";
 const ENTRIES_DIRECTORY = "entries";
 
 const createMetaDataFile = async () => {
-  // Creates a new JSON file for storing meta data of all entries and populates it with an empty array
   const file = new File(Paths.document, META_DATA_FILE_NAME);
 
   if (!file.exists) {
@@ -15,6 +16,7 @@ const createMetaDataFile = async () => {
   }
 };
 
+// Reads the metadata index, creating it if it doesn't exist yet.
 export const getAllEntriesMetaData = async (): Promise<EntryMetaData[]> => {
   const file = new File(Paths.document, META_DATA_FILE_NAME);
 
@@ -31,6 +33,7 @@ export const getAllEntriesMetaData = async (): Promise<EntryMetaData[]> => {
   return parsedEntriesMetaData;
 };
 
+// Appends a new entry's metadata to the index file.
 export const addNewEntryMetaData = async (
   newEntryMetaData: EntryMetaData,
 ): Promise<void> => {
@@ -42,6 +45,7 @@ export const addNewEntryMetaData = async (
   await file.write(JSON.stringify(entries, null, 2));
 };
 
+// Creates the individual JSON file for a new entry, seeding it with an empty content string.
 export const createNewEntryFile = async (
   entryMetaData: EntryMetaData,
 ): Promise<void> => {
@@ -63,6 +67,7 @@ export const createNewEntryFile = async (
   await entryFile.write(stringifiedFileContent);
 };
 
+// Overwrites the full entry file with the updated entry object
 export const updateEntryFile = async (entry: Entry): Promise<void> => {
   const entriesDirectory = new Directory(Paths.document, ENTRIES_DIRECTORY);
   const entryFile = new File(entriesDirectory, `${entry.id}.json`);
@@ -71,6 +76,8 @@ export const updateEntryFile = async (entry: Entry): Promise<void> => {
   await entryFile.write(stringifiedFileContent);
 };
 
+// Finds the entry's existing record in the metadata index by ID and replaces it in the array
+// then writes the whole updated array back to disk.
 export const updateMetaDataFile = async (
   entryMetaData: EntryMetaData,
 ): Promise<void> => {
@@ -86,6 +93,7 @@ export const updateMetaDataFile = async (
   await metaDataFile.write(stringifiedFileContent);
 };
 
+// Full entry files are only loaded when opening the entry screen — the feed uses the metadata index.
 export const getEntryFile = async (entryId: Entry["id"]): Promise<Entry> => {
   const entriesDirectory = new Directory(Paths.document, ENTRIES_DIRECTORY);
   const entryFile = new File(entriesDirectory, `${entryId}.json`);
@@ -95,8 +103,8 @@ export const getEntryFile = async (entryId: Entry["id"]): Promise<Entry> => {
   return JSON.parse(fileContents) as Entry;
 };
 
+// Permanently removes an entry from both the filesystem and the metadata index.
 export const deleteEntry = async (entryId: Entry["id"]): Promise<void> => {
-  // Delete the entry file
   const entriesDirectory = new Directory(Paths.document, ENTRIES_DIRECTORY);
   const entryFile = new File(entriesDirectory, `${entryId}.json`);
 
@@ -104,7 +112,6 @@ export const deleteEntry = async (entryId: Entry["id"]): Promise<void> => {
     await entryFile.delete();
   }
 
-  // Remove the metadata
   const metaDataFile = new File(Paths.document, META_DATA_FILE_NAME);
   const allEntriesMetaData = await getAllEntriesMetaData();
 
@@ -116,6 +123,7 @@ export const deleteEntry = async (entryId: Entry["id"]): Promise<void> => {
   await metaDataFile.write(stringifiedMetaData);
 };
 
+// Flips the favorite flag on an entry.
 export const toggleEntryFavoriteStatus = async (
   entryId: Entry["id"],
 ): Promise<void> => {

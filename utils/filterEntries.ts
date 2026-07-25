@@ -9,6 +9,7 @@ export function filterEntries(
 ) {
   const trimmedSearch = searchTitle.trim().toLowerCase();
 
+  // If no search criteria are provided, return an empty array to avoid listing all entries
   if (trimmedSearch === "" && !date) {
     return [];
   }

@@ -38,6 +38,7 @@ export default function EntryScreen() {
     editorRef.current.focusContentEditor();
   };
 
+  // Both saves are debounced to avoid excessive file system operations on every keystroke
   const debouncedTitleSave = useMemo(
     () =>
       debounce(async (title: string) => {
