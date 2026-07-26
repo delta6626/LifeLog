@@ -8,5 +8,5 @@ export interface Entry {
   isFavorite: boolean;
 
   createdAt: EpochTimeStamp; // Milliseconds since UNIX epoch
-  updatedAt: EpochTimeStamp; // Milliseconds since UNIX epoch
+  updatedAt: EpochTimeStamp;
 }
