@@ -174,7 +174,7 @@ export default function EntryScreen() {
             ref={editorRef}
             disabled={entryScreenMode === "read"}
             useContainer={false}
-            placeholder={"Write something"}
+            placeholder={"Start writing..."}
             editorInitializedCallback={initializeEntry}
             onChange={debouncedEditorContentSave}
             editorStyle={{
