@@ -20,7 +20,7 @@ import { getEntryPreview } from "../../utils/getEntryPreview";
 import { getEntryWordCount } from "../../utils/getEntryWordCount";
 import { useAppTheme } from "../../utils/useAppTheme";
 
-const DEBOUNCE_DURATION = 300; // in ms
+const DEBOUNCE_DURATION = 250; // in ms
 
 export default function EntryScreen() {
   const theme = useAppTheme();
