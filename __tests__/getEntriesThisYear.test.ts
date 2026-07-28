@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { EntryMetaData } from "../types/EntryMetaData";
 import { getEntriesThisYear } from "../utils/getEntriesThisYear";
 
