@@ -108,6 +108,12 @@ export default function EntryScreen() {
     };
   }, [debouncedEditorContentSave]);
 
+  useEffect(() => {
+    if (entryScreenMode === "edit" && editorRef.current) {
+      editorRef.current.focusContentEditor();
+    }
+  }, [entryScreenMode]);
+
   const styles = StyleSheet.create({
     parentContainer: {
       flex: 1,
