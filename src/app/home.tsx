@@ -9,14 +9,14 @@ import { DeleteEntryModal } from "../../components/DeleteEntryModal";
 import { EntryCard } from "../../components/EntryCard";
 import { HomeTopBar } from "../../components/HomeTopBar";
 import { InsightsCard } from "../../components/InsightsCard";
+import {
+  addNewEntryMetaData,
+  createNewEntryFile,
+} from "../../crud/crudHelpers";
 import { useCurrentEntryStore } from "../../store/currentEntryStore";
 import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
 import { useMetaDataStore } from "../../store/metaDataStore";
 import { EntryMetaData } from "../../types/EntryMetaData";
-import {
-  addNewEntryMetaData,
-  createNewEntryFile,
-} from "../../utils/crudHelpers";
 import { getGreetingText } from "../../utils/getGreetingText";
 import { groupEntriesByMonth } from "../../utils/groupEntriesByMonth";
 import { useAppTheme } from "../../utils/useAppTheme";

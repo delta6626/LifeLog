@@ -6,15 +6,15 @@ import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { InsertLinkModal } from "../../components/InsertLinkModal";
 import { ScreenHeader } from "../../components/ScreenHeader";
-import { useCurrentEntryStore } from "../../store/currentEntryStore";
-import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
-import { useInsertLinkModalStore } from "../../store/insertLinkModalStore";
-import { Entry } from "../../types/Entry";
 import {
   getEntryFile,
   updateEntryFile,
   updateMetaDataFile,
-} from "../../utils/crudHelpers";
+} from "../../crud/crudHelpers";
+import { useCurrentEntryStore } from "../../store/currentEntryStore";
+import { useEntryScreenModeStore } from "../../store/entryScreenModeStore";
+import { useInsertLinkModalStore } from "../../store/insertLinkModalStore";
+import { Entry } from "../../types/Entry";
 import { getEntryPlainTextContent } from "../../utils/getEntryPlainTextContent";
 import { getEntryPreview } from "../../utils/getEntryPreview";
 import { getEntryWordCount } from "../../utils/getEntryWordCount";

@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 import { Button, IconButton, Modal, Portal, Text } from "react-native-paper";
+import { deleteEntry } from "../crud/crudHelpers";
 import { useDeleteEntryModalStore } from "../store/deleteEntryModalStore";
 import { useMetaDataStore } from "../store/metaDataStore";
-import { deleteEntry } from "../utils/crudHelpers";
 import { useAppTheme } from "../utils/useAppTheme";
 
 export const DeleteEntryModal = () => {

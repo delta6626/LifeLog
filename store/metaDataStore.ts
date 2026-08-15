@@ -1,6 +1,6 @@
 import { create } from "zustand";
+import { getAllEntriesMetaData } from "../crud/crudHelpers";
 import { EntryMetaData } from "../types/EntryMetaData";
-import { getAllEntriesMetaData } from "../utils/crudHelpers";
 
 interface MetaDataStore {
   metaDataList: EntryMetaData[];

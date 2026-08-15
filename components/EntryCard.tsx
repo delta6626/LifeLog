@@ -1,12 +1,12 @@
 import { router } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { IconButton, Text, TouchableRipple } from "react-native-paper";
+import { toggleEntryFavoriteStatus } from "../crud/crudHelpers";
 import { useCurrentEntryStore } from "../store/currentEntryStore";
 import { useDeleteEntryModalStore } from "../store/deleteEntryModalStore";
 import { useEntryScreenModeStore } from "../store/entryScreenModeStore";
 import { useMetaDataStore } from "../store/metaDataStore";
 import { EntryMetaData } from "../types/EntryMetaData";
-import { toggleEntryFavoriteStatus } from "../utils/crudHelpers";
 import { formatDayDate } from "../utils/formatDayDate";
 import { useAppTheme } from "../utils/useAppTheme";
 
