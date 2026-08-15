@@ -45,11 +45,9 @@ Install the dependencies:
 npm install
 ```
 
-````
-
 Start the Expo development server:
 
-```bash
+```
 npx expo start
 ```
 
@@ -89,4 +87,3 @@ Run the unit tests with:
 ```bash
 npm run test
 ```
-````
