@@ -46,6 +46,8 @@ export const EntryCard = ({ entryMetaData }: EntryCardProps) => {
       padding: theme.spacing.md,
       backgroundColor: theme.colors.surface,
       borderRadius: theme.radii.xl,
+      borderWidth: 1,
+      borderColor: theme.colors.outline,
     },
 
     titleText: {
