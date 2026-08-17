@@ -21,7 +21,7 @@ The application is designed for offline use; all data is stored locally on the d
 ![Home screen](assets/screeenshots/1.jpg)
 ![Entry screen in edit mode](assets/screeenshots/3.jpg)
 ![Entry screen in view mode](assets/screeenshots/4.jpg)
-![Search Screen with date filter](assets/screeenshots/2.jpg)s
+![Search Screen with date filter](assets/screeenshots/2.jpg)
 ![Search screen with title filter](assets/screeenshots/5.jpg)
 ![Favorites screen](assets/screeenshots/6.jpg)
 ![Delete modal](assets/screeenshots/7.jpg)
